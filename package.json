@@ -1,0 +1,25 @@
+{
+    "name": "rental-mobil",
+    "version": "1.0.0",
+    "description": "Rental Mobil App",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon src/app.js",
+        "tailwind": "tailwindcss -i ./tailwind/input.css -o ./public/css/tailwind.css --watch"
+    },
+    "author": "Anri 11220030",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "brcypt": "^1.0.1",
+        "dotenv": "^16.3.2",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "express-session": "^1.17.3",
+        "joi": "^17.12.0",
+        "method-override": "^3.0.0",
+        "serverless-mysql": "^1.5.5"
+    }
+}

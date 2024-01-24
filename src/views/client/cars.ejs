@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <%- include("partials/head") %>
+  </head>
+  <body>
+    <div id="app">
+      <header><%- include('partials/header') %></header>
+      <section class="is-hero-bar">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
+        >
+          <h1 class="title">Daftar Mobil</h1>
+        </div>
+      </section>
+      <section class="section main-section">
+        <% if (msg !== undefined) { %>
+        <div class="notification blue">
+          <div
+            class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0"
+          >
+            <div>
+              <span class="icon"><i class="mdi mdi-buffer"></i></span>
+              <b><%= msg %></b>
+            </div>
+            <button
+              type="button"
+              class="button small textual --jb-notification-dismiss"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+        <% } %>
+        <div class="card has-table">
+          <div class="card-content">
+            <table>
+              <thead>
+                <tr>
+                  <th class="text-center">Merk</th>
+                  <th class="text-center">Model</th>
+                  <th class="text-center">Tahun Rilis</th>
+                  <th class="text-center">Warna</th>
+                  <th class="text-center">Harga Harian</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% data.data.forEach(d => { %>
+                <tr>
+                  <td class="text-center" data-label="Merk"><%= d.merk %></td>
+                  <td class="text-center" data-label="Model"><%= d.model %></td>
+                  <td class="text-center" data-label="Tahun Rilis">
+                    <%= d.tahun_produksi %>
+                  </td>
+                  <td class="text-center" data-label="Warna"><%= d.warna %></td>
+                  <td class="text-center" data-label="Harga Harian">
+                    Rp. <%= d.harga %>
+                  </td>
+                  <td class="text-center" data-label="Status">
+                    <%= d.status %>
+                  </td>
+
+                  <td class="actions-cell">
+                    <div class="text-center">
+                      <% if (d.status === 'disewa') { %>
+                      <button
+                        class="button red opacity-50"
+                        onclick="return false"
+                        type="button"
+                      >
+                        Booking
+                      </button>
+                      <% } else {%>
+                      <button
+                        class="--jb-modal button green"
+                        title="Booking"
+                        data-target="form-booking-<%= d.id %>"
+                        type="button"
+                      >
+                        Booking
+                      </button>
+                      <% } %>
+                    </div>
+                  </td>
+                </tr>
+                <div id="form-booking-<%= d.id %>" class="modal">
+                  <div class="modal-background --jb-modal-close"></div>
+                  <div class="modal-card">
+                    <header class="modal-card-head">
+                      <p class="modal-card-title text-lg"><b>Booking</b></p>
+                    </header>
+                    <form action="/cars" method="POST">
+                      <section class="modal-card-body">
+                        <p class="text-center uppercase text-lg">
+                          <b><%= d.merk %> <%= d.model %></b>
+                        </p>
+                        <br />
+                        <label class="label">Harga Harian :</label>
+                        <p class="text-sm italic">Rp. <%= d.harga %></p>
+
+                        <label for="tgl_mulai_sewa" class="label"
+                          >Sewa Tanggal :</label
+                        >
+                        <input
+                          class="focus:outline-none text-sm italic"
+                          type="date"
+                          name="tgl_mulai_sewa"
+                          id="tgl_mulai_sewa"
+                        />
+                        <label for="tgl_selesai_sewa" class="label"
+                          >Sampai Tanggal :</label
+                        >
+                        <input
+                          class="focus:outline-none text-sm italic"
+                          type="date"
+                          name="tgl_selesai_sewa"
+                          id="tgl_selesai_sewa"
+                        />
+                        <input
+                          type="hidden"
+                          name="id_user"
+                          value="<%= user?.id %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="id_mobil"
+                          value="<%= d.id %>"
+                        />
+                      </section>
+                      <footer class="modal-card-foot">
+                        <button
+                          class="button green --jb-modal-close"
+                          title="Konfirmasi"
+                          type="submit"
+                        >
+                          Konfirmasi
+                        </button>
+
+                        <button
+                          class="button red --jb-modal-close"
+                          title="Batalkan"
+                          type="button"
+                        >
+                          Batalkan
+                        </button>
+                      </footer>
+                    </form>
+                  </div>
+                </div>
+                <% }) %>
+              </tbody>
+            </table>
+            <div class="table-pagination">
+              <div class="flex items-center justify-between">
+                <div class="buttons">
+                  <% if (data.paging.prev_page < 1) { %>
+                  <button type="button" onclick="return false" class="button">
+                    Previous
+                  </button>
+                  <% } else {%>
+                  <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                    <button type="button" class="button">Previous</button>
+                  </a>
+                  <% } %> <% for (let i = data.paging.start_page; i <=
+                  data.paging.end_page; i++) {%>
+                  <a href=" <%= path %>?page=<%= i %> ">
+                    <button
+                      type="button"
+                      class="button <%= i === data.paging.current_page ? 'active' : ''%>"
+                    >
+                      <%= i %>
+                    </button>
+                  </a>
+                  <% } %> <% if (data.paging.next_page <=
+                  data.paging.total_page) { %>
+                  <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                    <button type="button" class="button">Next</button>
+                  </a>
+                  <% } else { %>
+                  <button type="button" onclick="return false" class="button">
+                    Next
+                  </button>
+                  <% } %>
+                </div>
+                <small>
+                  Total data : <%= data.total_data %> &emsp; Page
+                  <%=data.paging.current_page %> of <%= data.paging.total_page
+                  %>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+  </body>
+</html>

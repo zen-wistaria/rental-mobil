@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <%- include("partials/head") %>
+  </head>
+  <body>
+    <div id="app">
+      <header><%- include('partials/header') %></header>
+      <section class="section main-section">
+        <div class="card mb-6">
+          <header class="card-header">
+            <p class="card-header-title">
+              <span class="icon"><i class="mdi mdi-ballot"></i></span>
+              Forms
+            </p>
+          </header>
+          <p class="label" style="text-align: center"><%= msg %></p>
+          <div class="card-content">
+            <form method="post" action="/admin/dashboard/cars">
+              <div class="field">
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control icons-left">
+                      <input
+                        class="input"
+                        type="text"
+                        name="merk"
+                        placeholder="Merk Mobil"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="model"
+                        placeholder="Model"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="tahun_produksi"
+                        placeholder="Tahun Rilis"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="warna"
+                        placeholder="Warna"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="plat_nomor"
+                        placeholder="Plat Nomor"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="nomor_stnk"
+                        placeholder="Nomor STNK"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="control icons-left icons-right">
+                      <input
+                        class="input"
+                        type="text"
+                        name="harga"
+                        placeholder="Harga Harian"
+                      />
+                      <span class="icon left"
+                        ><i class="mdi mdi-mail"></i
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="field grouped">
+                <div class="control">
+                  <button type="submit" class="button green">Tambahkan</button>
+                </div>
+                <div class="control">
+                  <button type="reset" class="button red">Reset</button>
+                </div>
+                <div class="control">
+                  <a href="/admin/dashboard/cars">
+                    <button type="button" class="button blue">Kembali</button>
+                  </a>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+  </body>
+</html>
