@@ -10,7 +10,7 @@
                 <div
                     class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
                 >
-                    <h1 class="title">Mobil</h1>
+                    <h1 class="title">Daftar Booking</h1>
                 </div>
             </section>
             <section class="section main-section">
@@ -35,88 +35,81 @@
                 </div>
                 <% } %>
                 <div class="card has-table">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <span class="icon"
-                                ><i class="mdi mdi-account-multiple"></i
-                            ></span>
-                            Mobil
-                        </p>
-                        <div class="my-auto flex justify-center mt-2">
-                            <a href="/admin/dashboard/cars/add">
-                                <button
-                                    type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                >
-                                    Tambah Mobil
-                                </button>
-                            </a>
-                        </div>
-                    </header>
                     <div class="card-content">
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="text-center">Merk</th>
-                                    <th class="text-center">Model</th>
-                                    <th class="text-center">Tahun Rilis</th>
-                                    <th class="text-center">Warna</th>
-                                    <th class="text-center">Plat Nomor</th>
-                                    <th class="text-center">Nomor STNK</th>
-                                    <th class="text-center">Harga</th>
+                                    <th class="text-center">Kode Booking</th>
+                                    <th class="text-center">Mobil Merk</th>
+                                    <th class="text-center">Mobil Model</th>
+                                    <th class="text-center">Tanggal Booking</th>
+                                    <th class="text-center">
+                                        Tanggal Mulai Sewa
+                                    </th>
+                                    <th class="text-center">
+                                        Tanggal Selesai Sewa
+                                    </th>
+                                    <th class="text-center">Lama Sewa</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% data.data.forEach(d => { %>
-
                                 <tr>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Merk"
+                                        class="text-center"
+                                        data-label="Kode Booking"
+                                    >
+                                        <%= d.kode_booking %>
+                                    </td>
+                                    <td
+                                        class="text-center"
+                                        data-label="Mobil Merk"
                                     >
                                         <%= d.merk %>
                                     </td>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Model"
+                                        class="text-center"
+                                        data-label="Mobil Model"
                                     >
                                         <%= d.model %>
                                     </td>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Tahun Rilis"
+                                        class="text-center"
+                                        data-label="Tanggal Booking"
                                     >
-                                        <%= d.tahun_produksi %>
+                                        <%= d.tgl_booking %>
                                     </td>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Warna"
+                                        class="text-center"
+                                        data-label="Tanggal Mulai Sewa"
                                     >
-                                        <%= d.warna %>
+                                        <%= d.tgl_mulai_sewa %>
                                     </td>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Plat Nomor"
+                                        class="text-center"
+                                        data-label="Tanggal Selesai Sewa"
                                     >
-                                        <%= d.plat_nomor %>
+                                        <%= d.tgl_selesai_sewa %>
                                     </td>
                                     <td
-                                        class="text-center capitalize"
-                                        data-label="Nomor STNK"
+                                        class="text-center"
+                                        data-label="Lama Sewa"
                                     >
-                                        <%= d.nomor_stnk %>
+                                        <%= d.lama_sewa %> Hari
                                     </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Harga"
-                                    >
-                                        <%= d.harga %>
-                                    </td>
-                                    <% if (d.status === 'tersedia') { %>
+                                    <% if (d.status === 'selesai') { %>
                                     <td
                                         class="text-center font-semibold capitalize text-green-500"
+                                        data-label="Status"
+                                    >
+                                        <%= d.status %>
+                                    </td>
+                                    <% } else if (d.status === 'dikonfirmasi') {
+                                    %>
+                                    <td
+                                        class="text-center font-semibold capitalize text-blue-500"
                                         data-label="Status"
                                     >
                                         <%= d.status %>
@@ -129,56 +122,41 @@
                                         <%= d.status %>
                                     </td>
                                     <% } %>
-
                                     <td class="actions-cell">
-                                        <div class="flex justify-center">
-                                            <a
-                                                title="Edit"
-                                                href="/admin/dashboard/cars/edit?id=<%= d.id %>"
-                                                class="mr-2"
-                                            >
-                                                <svg
-                                                    class="w-6 h-6 fill-blue-500"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </a>
+                                        <div class="text-center">
+                                            <% if (d.status === 'dikonfirmasi')
+                                            { %>
                                             <button
-                                                class="--jb-modal"
-                                                title="Hapus"
-                                                data-target="confrim-delete-modal-<%= d.id %>"
+                                                class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 opacity-50"
+                                                onclick="return false"
                                                 type="button"
                                             >
-                                                <svg
-                                                    class="w-6 h-6 fill-red-500 --jb-modal"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
+                                                Batalkan
                                             </button>
+                                            <% } else if (d.status ===
+                                            'selesai'){%>
+                                            <button
+                                                class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 opacity-50"
+                                                type="button"
+                                                onclick="return false"
+                                            >
+                                                Batalkan
+                                            </button>
+                                            <% } else {%>
+                                            <button
+                                                class="--jb-modal text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                                title="Batalkan"
+                                                data-target="confirm-batalkan-<%= d.id %>"
+                                                type="button"
+                                            >
+                                                Batalkan
+                                            </button>
+                                            <% } %>
                                         </div>
                                     </td>
                                 </tr>
                                 <div
-                                    id="confrim-delete-modal-<%= d.id %>"
+                                    id="confirm-batalkan-<%= d.id %>"
                                     class="modal"
                                 >
                                     <div
@@ -186,38 +164,46 @@
                                     ></div>
                                     <div class="modal-card">
                                         <header class="modal-card-head">
-                                            <p class="modal-card-title">
-                                                <b>Hapus</b>
+                                            <p class="modal-card-title text-lg">
+                                                <b>Booking</b>
                                             </p>
                                         </header>
+
                                         <section class="modal-card-body">
-                                            <p>
+                                            <p
+                                                class="text-center text-md font-semibold"
+                                            >
                                                 Apakah anda yakin ingin
-                                                menghapus mobil
-                                                <b
-                                                    ><%= d.merk %> <%= d.model
-                                                    %></b
-                                                >
-                                                ?
+                                                membatalkan booking
+                                                <b><%= d.kode_booking %></b>
+                                                ini?
                                             </p>
                                         </section>
                                         <footer class="modal-card-foot">
-                                            <button
-                                                class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                            >
-                                                Batalkan
-                                            </button>
                                             <form
-                                                action="/admin/dashboard/cars?id=<%= d.id %>&_method=DELETE"
+                                                action="/booking?id=<%= d.id %>&_method=DELETE"
                                                 method="POST"
                                             >
+                                                <input
+                                                    type="hidden"
+                                                    name="id_mobil"
+                                                    value="<%= d.id_mobil %>"
+                                                />
                                                 <button
-                                                    class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
+                                                    class="--jb-modal-close text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                                    title="Konfirmasi"
                                                     type="submit"
                                                 >
                                                     Konfirmasi
                                                 </button>
                                             </form>
+                                            <button
+                                                class="--jb-modal-close text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                                title="Batalkan"
+                                                type="button"
+                                            >
+                                                Batalkan
+                                            </button>
                                         </footer>
                                     </div>
                                 </div>

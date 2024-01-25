@@ -21,6 +21,11 @@ adminRouter
     .delete(adminController.delClient);
 adminRouter.get("/admin/dashboard/clients/add", adminController.addClient);
 adminRouter.get("/admin/dashboard/clients/edit", adminController.editClient);
+adminRouter
+    .route("/admin/dashboard/booking")
+    .get(adminController.bookings)
+    .patch(adminController.bookings);
+adminRouter.get("/admin/dashboard/transactions", adminController.transactions);
 adminRouter.get("/admin/dashboard/profile", adminController.profile);
 
 export { adminRouter };

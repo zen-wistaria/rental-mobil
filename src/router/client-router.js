@@ -13,6 +13,10 @@ clientRouter
     .route("/booking")
     .get(clientController.getBooking)
     .delete(clientController.delBooking);
+clientRouter
+    .route("/transactions")
+    .get(clientController.transactions)
+    .patch(clientController.setTransactionsStatus);
 clientRouter.get("/profile", clientController.profile);
 
 export { clientRouter };

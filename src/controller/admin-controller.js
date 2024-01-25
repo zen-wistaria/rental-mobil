@@ -1,6 +1,5 @@
 import adminService from "../service/admin-service.js";
 const index = async (req, res) => {
-    console.log(req.session);
     res.render("admin/index", {
         title: "Admin Dashboard",
         title_page: "Dashboard",
@@ -207,12 +206,55 @@ const delClient = async (req, res) => {
     }
 };
 
-const forms = async (req, res) => {
-    res.render("admin/forms", {
-        title: "Admin Forms",
-        title_page: "Forms",
-        path: req.path,
-    });
+const bookings = async (req, res) => {
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            const page = parseInt(req.query.page) || 1;
+            const result = await adminService.getBookings(page);
+            res.render("admin/bookings", {
+                title: "Admin Bookings",
+                title_page: "Booking",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            return;
+        }
+
+        // handle PATCH method
+        const bookingId = req.query.id;
+        const result = await adminService.setBookingStatus(bookingId, req.body);
+        res.redirect("/admin/dashboard/booking");
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const transactions = async (req, res) => {
+    let msg;
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const result = await adminService.getTransactions(page);
+        res.render("admin/transactions", {
+            title: "Admin Transactions",
+            title_page: "Transaksi",
+            path: req.path,
+            data: result,
+            msg: msg,
+            user: req.session.user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
 };
 
 const profile = async (req, res) => {
@@ -233,6 +275,7 @@ export default {
     addClient,
     editClient,
     delClient,
-    forms,
+    bookings,
+    transactions,
     profile,
 };

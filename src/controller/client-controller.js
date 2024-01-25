@@ -44,7 +44,7 @@ const getBooking = async (req, res) => {
         const id_user = req.session.user.id;
         const page = req.query.page || 1;
         const result = await clientService.getBooking(id_user, page);
-        res.render("client/booking", {
+        res.render("client/bookings", {
             title: "Booking",
             title_page: "Booking",
             path: req.path,
@@ -52,14 +52,59 @@ const getBooking = async (req, res) => {
             msg: msg,
             user: req.session.user,
         });
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
 };
 
 const delBooking = async (req, res) => {
     try {
         const bookingId = req.query.id;
-        await clientService.delBooking(bookingId);
+        const mobilId = req.body.id_mobil;
+        await clientService.delBooking(bookingId, mobilId);
         res.redirect("/booking");
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const transactions = async (req, res) => {
+    let msg;
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const id_user = req.session.user.id;
+        const result = await clientService.getTransactions(id_user, page);
+        res.render("client/transactions", {
+            title: "Transactions",
+            title_page: "Transaksi",
+            path: req.path,
+            data: result,
+            msg: msg,
+            user: req.session.user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const setTransactionsStatus = async (req, res) => {
+    try {
+        const transactionsId = req.query.id;
+        const status = req.body.status;
+        const result = await clientService.setTransactionsStatus(
+            transactionsId,
+            status
+        );
+        res.redirect("/transactions");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -80,5 +125,7 @@ export default {
     getCars,
     getBooking,
     delBooking,
+    transactions,
+    setTransactionsStatus,
     profile,
 };

@@ -73,15 +73,22 @@
       <li <% if (path === "/cars" || path === "/cars/add") { %>
         class="active" <% } else { %> class="--set-active-tables-html" <% } %> >
         <a href="/cars">
-          <span class="icon"><i class="mdi mdi-table"></i></span>
+          <span class="icon"><i class="mdi mdi-truck"></i></span>
           <span class="menu-item-label">Mobil</span>
         </a>
       </li>
       <li <% if (path === "/booking" ) { %>
         class="active" <% } else { %> class="--set-active-tables-html" <% } %> >
         <a href="/booking">
-          <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
+          <span class="icon"><i class="mdi mdi-clipboard-check"></i></span>
           <span class="menu-item-label">Booking</span>
+        </a>
+      </li>
+      <li <% if (path === "/transactions" ) { %>
+        class="active" <% } else { %> class="--set-active-tables-html" <% } %> >
+        <a href="/transactions">
+          <span class="icon"><i class="mdi mdi-clipboard-flow"></i></span>
+          <span class="menu-item-label">Transaksi</span>
         </a>
       </li>
       <li <% if (path === "/profile" ) { %>

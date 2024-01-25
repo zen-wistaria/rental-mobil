@@ -1,155 +1,185 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-  <head>
-    <%- include("partials/head") %>
-  </head>
-  <body>
-    <div id="app">
-      <header><%- include('partials/header') %></header>
-      <section class="section main-section">
-        <div class="card mb-6">
-          <header class="card-header">
-            <p class="card-header-title">
-              <span class="icon"><i class="mdi mdi-ballot"></i></span>
-              Forms
-            </p>
-          </header>
-          <p class="label" style="text-align: center"><%= msg %></p>
-          <% data.forEach(data => { %>
+    <head>
+        <%- include("partials/head") %>
+    </head>
+    <body>
+        <div id="app">
+            <header><%- include('partials/header') %></header>
+            <section class="section main-section">
+                <div class="card mb-6">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"
+                                ><i class="mdi mdi-ballot"></i
+                            ></span>
+                            Forms
+                        </p>
+                    </header>
+                    <p class="label" style="text-align: center"><%= msg %></p>
+                    <% data.forEach(data => { %>
 
-          <div class="card-content">
-            <form method="post" action="/admin/dashboard/cars?_method=PUT">
-              <div class="field">
-                <div class="field-body">
-                  <div class="field">
-                    <label class="label">Merk :</label>
-                    <div class="control icons-left">
-                      <input
-                        class="input"
-                        type="text"
-                        name="merk"
-                        placeholder="Merk Mobil"
-                        value="<%= data.merk %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
+                    <div class="card-content">
+                        <form
+                            method="post"
+                            action="/admin/dashboard/cars?_method=PUT"
+                        >
+                            <div class="field">
+                                <div class="field-body">
+                                    <div class="field">
+                                        <label class="label">Merk :</label>
+                                        <div class="control icons-left">
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="merk"
+                                                placeholder="Merk Mobil"
+                                                value="<%= data.merk %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Model :</label>
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="model"
+                                                placeholder="Model"
+                                                value="<%= data.model %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"
+                                            >Tahun Rilis :</label
+                                        >
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="tahun_produksi"
+                                                placeholder="Tahun Rilis"
+                                                value="<%= data.tahun_produksi %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Warna :</label>
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="warna"
+                                                placeholder="Warna"
+                                                value="<%= data.warna %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"
+                                            >Plat Nomor :</label
+                                        >
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="plat_nomor"
+                                                placeholder="Plat Nomor"
+                                                value="<%= data.plat_nomor %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"
+                                            >Nomor STNK :</label
+                                        >
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="nomor_stnk"
+                                                placeholder="Nomor STNK"
+                                                value="<%= data.nomor_stnk %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Harga :</label>
+                                        <div
+                                            class="control icons-left icons-right"
+                                        >
+                                            <input
+                                                class="input"
+                                                type="text"
+                                                name="harga"
+                                                placeholder="Harga Harian"
+                                                value="<%= data.harga %>"
+                                            />
+                                            <span class="icon left"
+                                                ><i class="mdi mdi-mail"></i
+                                            ></span>
+                                        </div>
+                                    </div>
+                                    <input
+                                        type="hidden"
+                                        name="id"
+                                        value="<%= data.id %>"
+                                    />
+                                </div>
+                            </div>
+                            <div class="field grouped">
+                                <div class="control">
+                                    <button
+                                        type="submit"
+                                        class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                    >
+                                        Konfirmasi
+                                    </button>
+                                    <button
+                                        type="button"
+                                        class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                                        onclick="history.back()"
+                                    >
+                                        Batalkan
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Model :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="model"
-                        placeholder="Model"
-                        value="<%= data.model %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Tahun Rilis :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="tahun_produksi"
-                        placeholder="Tahun Rilis"
-                        value="<%= data.tahun_produksi %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Warna :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="warna"
-                        placeholder="Warna"
-                        value="<%= data.warna %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Plat Nomor :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="plat_nomor"
-                        placeholder="Plat Nomor"
-                        value="<%= data.plat_nomor %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Nomor STNK :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="nomor_stnk"
-                        placeholder="Nomor STNK"
-                        value="<%= data.nomor_stnk %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <div class="field">
-                    <label class="label">Harga :</label>
-                    <div class="control icons-left icons-right">
-                      <input
-                        class="input"
-                        type="text"
-                        name="harga"
-                        placeholder="Harga Harian"
-                        value="<%= data.harga %>"
-                      />
-                      <span class="icon left"
-                        ><i class="mdi mdi-mail"></i
-                      ></span>
-                    </div>
-                  </div>
-                  <input type="hidden" name="id" value="<%= data.id %>" />
+                    <% }) %>
                 </div>
-              </div>
-              <div class="field grouped">
-                <div class="control">
-                  <button type="submit" class="button green">Konfirmasi</button>
-                </div>
-                <div class="control">
-                  <button
-                    type="button"
-                    class="button blue"
-                    onclick="history.back()"
-                  >
-                    Batalkan
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <% }) %>
+            </section>
+            <%- include("partials/footer") %>
         </div>
-      </section>
-      <%- include("partials/footer") %>
-    </div>
-    <%- include("partials/script") %>
-  </body>
+        <%- include("partials/script") %>
+    </body>
 </html>

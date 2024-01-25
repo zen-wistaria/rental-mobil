@@ -47,6 +47,13 @@ const bookingCars = async (request) => {
             request.tgl_selesai_sewa,
         ],
     });
+
+    // update mobil status
+    await executeQuery({
+        query: "UPDATE Mobil SET status = 'disewa' WHERE id = ?",
+        values: [request.id_mobil],
+    });
+
     const result = JSON.parse(JSON.stringify(data));
     return result[0];
 };
@@ -55,7 +62,7 @@ const getBooking = async (id_user, page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT *,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as hari FROM Booking WHERE id_user = ? LIMIT ? OFFSET ? ",
+        query: "SELECT Booking.id,Booking.id_mobil,Booking.kode_booking,Booking.status,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa, Mobil.merk, Mobil.model FROM Booking LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id WHERE Booking.id_user = ? ORDER BY tgl_booking DESC LIMIT ? OFFSET ? ",
         values: [id_user, sizeOfPage, offset],
     });
 
@@ -90,13 +97,67 @@ const getBooking = async (id_user, page) => {
     };
 };
 
-const delBooking = async (bookingId) => {
+const delBooking = async (bookingId, mobilId) => {
     const data = await executeQuery({
         query: "DELETE FROM Booking WHERE id = ?",
         values: [bookingId],
     });
+
+    // update status mobil
+    await executeQuery({
+        query: "UPDATE Mobil SET status = 'tersedia' WHERE id = ?",
+        values: [mobilId],
+    });
+
     const result = JSON.parse(JSON.stringify(data));
     return result[0];
+};
+
+const getTransactions = async (id_user, page) => {
+    const sizeOfPage = 10;
+    const offset = (page - 1) * sizeOfPage;
+    const data = await executeQuery({
+        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.kode_transaksi,Transaksi.total_biaya,Transaksi.status,DATE_FORMAT(tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian,DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa, Mobil.merk, Mobil.model FROM Transaksi LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id WHERE Transaksi.id_user = ? ORDER BY tgl_peminjaman DESC LIMIT ? OFFSET ? ",
+        values: [id_user, sizeOfPage, offset],
+    });
+
+    const total = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Transaksi WHERE id_user = ?",
+        values: [id_user],
+    });
+
+    const result = JSON.parse(JSON.stringify(data));
+
+    const totalPages = Math.ceil(total[0].total / sizeOfPage);
+    const maxPagination = 4;
+    const halfMaxPagination = Math.floor(maxPagination / 2);
+    let startPage = Math.max(page - halfMaxPagination, 1);
+    let endPage = startPage + maxPagination - 1;
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(endPage - maxPagination + 1, 1);
+    }
+
+    return {
+        data: result,
+        total_data: total[0].total,
+        paging: {
+            current_page: page,
+            next_page: page + 1,
+            prev_page: page - 1,
+            start_page: startPage,
+            end_page: endPage,
+            total_page: totalPages,
+        },
+    };
+};
+
+const setTransactionsStatus = async (transactionsId, status) => {
+    const data = await executeQuery({
+        query: "UPDATE Transaksi SET status = ? WHERE id = ?",
+        values: [status, transactionsId],
+    });
+    return data[0];
 };
 
 export default {
@@ -104,4 +165,6 @@ export default {
     bookingCars,
     getBooking,
     delBooking,
+    getTransactions,
+    setTransactionsStatus,
 };

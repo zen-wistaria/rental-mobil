@@ -227,6 +227,115 @@ const delClient = async (id) => {
     return result;
 };
 
+const getBookings = async (page) => {
+    const sizeOfPage = 10;
+    const offset = (page - 1) * sizeOfPage;
+    const data = await executeQuery({
+        query: "SELECT Booking.id,Booking.id_mobil,Booking.id_user,Booking.status,Booking.kode_booking,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model, Mobil.harga as harga FROM Booking LEFT OUTER JOIN Users ON Booking.id_user = Users.id LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id ORDER BY tgl_booking DESC LIMIT ? OFFSET ?",
+        values: [sizeOfPage, offset],
+    });
+
+    const total = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Booking",
+    });
+    const result = JSON.parse(JSON.stringify(data));
+
+    const totalPages = Math.ceil(total[0].total / sizeOfPage);
+    const maxPagination = 4;
+    const halfMaxPagination = Math.floor(maxPagination / 2);
+    let startPage = Math.max(page - halfMaxPagination, 1);
+    let endPage = startPage + maxPagination - 1;
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(endPage - maxPagination + 1, 1);
+    }
+
+    return {
+        data: result,
+        total_data: total[0].total,
+        paging: {
+            current_page: page,
+            next_page: page + 1,
+            prev_page: page - 1,
+            start_page: startPage,
+            end_page: endPage,
+            total_page: totalPages,
+        },
+    };
+};
+
+const setBookingStatus = async (bookingId, request) => {
+    const result = await executeQuery({
+        query: "UPDATE Booking SET status = ? WHERE id = ?",
+        values: [request.status, bookingId],
+    });
+
+    // update mobil ke disewa
+    if (request.status === "dikonfirmasi") {
+        await executeQuery({
+            query: "UPDATE Mobil SET status = 'disewa' WHERE id = ?",
+            values: [request.id],
+        });
+    }
+
+    // update mobil ke tersedia
+    if (request.status === "selesai") {
+        await executeQuery({
+            query: "UPDATE Mobil SET status = 'tersedia' WHERE id = ?",
+            values: [request.id_mobil],
+        });
+
+        await executeQuery({
+            query: "INSERT INTO Transaksi (id_user, id_mobil, tgl_peminjaman, tgl_pengembalian, total_biaya) VALUES (?, ?, ?, ?, ?)",
+            values: [
+                request.id_user,
+                request.id_mobil,
+                request.tgl_peminjaman.split("-").reverse().join("-"),
+                request.tgl_pengembalian.split("-").reverse().join("-"),
+                request.total_biaya,
+            ],
+        });
+    }
+    return result;
+};
+
+const getTransactions = async (page) => {
+    const sizeOfPage = 10;
+    const offset = (page - 1) * sizeOfPage;
+    const data = await executeQuery({
+        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.total_biaya,Transaksi.kode_transaksi,Transaksi.status,DATE_FORMAT(Transaksi.tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(Transaksi.tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian, DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model FROM Transaksi LEFT OUTER JOIN Users ON Transaksi.id_user = Users.id LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id ORDER BY tgl_peminjaman DESC LIMIT ? OFFSET ?",
+        values: [sizeOfPage, offset],
+    });
+
+    const total = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Transaksi",
+    });
+    const result = JSON.parse(JSON.stringify(data));
+
+    const totalPages = Math.ceil(total[0].total / sizeOfPage);
+    const maxPagination = 4;
+    const halfMaxPagination = Math.floor(maxPagination / 2);
+    let startPage = Math.max(page - halfMaxPagination, 1);
+    let endPage = startPage + maxPagination - 1;
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(endPage - maxPagination + 1, 1);
+    }
+
+    return {
+        data: result,
+        total_data: total[0].total,
+        paging: {
+            current_page: page,
+            next_page: page + 1,
+            prev_page: page - 1,
+            start_page: startPage,
+            end_page: endPage,
+            total_page: totalPages,
+        },
+    };
+};
+
 export default {
     getCars,
     addCars,
@@ -238,4 +347,7 @@ export default {
     getOneClient,
     editClient,
     delClient,
+    getBookings,
+    setBookingStatus,
+    getTransactions,
 };
