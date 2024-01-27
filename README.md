@@ -29,7 +29,7 @@ MYSQL_PASSWORD=user
 npm i && npm start
 ```
 
-> access : **_`http://localhost:3000`_**
+access : **_`http://localhost:3000`_**
 
 ---
 
@@ -59,8 +59,8 @@ MYSQL_PASSWORD=user
 docker compose up -d
 ```
 
-> access : **_`http://localhost`_**  
-> database access : **_`localhost`_** port **_`3307`_**
+access : **_`http://localhost`_**  
+database access : **_`localhost`_** port **_`3307`_**
 
 ---
 
