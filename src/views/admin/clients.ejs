@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 
 <head>
     <%- include("partials/head") %>
@@ -34,7 +34,7 @@
                         Pelanggan
                     </p>
                     <div class="my-auto flex justify-center mt-2">
-                        <a href="/admin/dashboard/clients/add">
+                        <a href="/admin/clients/add">
                             <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 Tambah Pelanggan
                             </button>
@@ -82,7 +82,7 @@
 
                                 <td class="actions-cell">
                                     <div class="flex justify-center">
-                                        <a title="Edit" href="/admin/dashboard/clients/edit?id=<%= d.id %>" class="mr-2">
+                                        <a title="Edit" href="/admin/clients/edit?id=<%= d.id %>" class="mr-2">
                                             <svg class="w-6 h-6 fill-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                                 <path fill-rule="evenodd" d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z" clip-rule="evenodd" />
                                                 <path fill-rule="evenodd" d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z" clip-rule="evenodd" />
@@ -115,7 +115,7 @@
                                         <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
                                             Batalkan
                                         </button>
-                                        <form action="/admin/dashboard/clients?id=<%= d.id %>&_method=DELETE" method="POST">
+                                        <form action="/admin/clients?id=<%= d.id %>&_method=DELETE" method="POST">
                                             <button class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" type="submit">
                                                 Konfirmasi
                                             </button>
@@ -130,11 +130,11 @@
                         <div class="flex items-center justify-between">
                             <div class="buttons">
                                 <% if (data.paging.prev_page < 1) { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Prev
                                 </button>
                                 <% } else {%>
-                                <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                                <a href="/admin<%= path %>?page=<%= data.paging.prev_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Prev
                                     </button>
@@ -142,20 +142,20 @@
                                 <% } %> <% for (let i =
                                     data.paging.start_page; i <=
                                     data.paging.end_page; i++) {%>
-                                <a href=" <%= path %>?page=<%= i %> ">
+                                <a href="/admin<%= path %>?page=<%= i %> ">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>">
                                         <%= i %>
                                     </button>
                                 </a>
                                 <% } %> <% if (data.paging.next_page <=
                                     data.paging.total_page) { %>
-                                <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                                <a href="/admin<%= path %>?page=<%= data.paging.next_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Next
                                     </button>
                                 </a>
                                 <% } else { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Next
                                 </button>
                                 <% } %>

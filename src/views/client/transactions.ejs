@@ -112,7 +112,7 @@
                                         </p>
                                     </section>
                                     <footer class="modal-card-foot">
-                                        <form action="/transactions?id=<%= d.id %>&_method=PATCH" method="POST">
+                                        <form action="/client/transactions?id=<%= d.id %>&_method=PATCH" method="POST">
                                             <input type="hidden" name="status" value="selesai" />
                                             <button class="--jb-modal-close text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" title="Konfirmasi" type="submit">
                                                 Konfirmasi
@@ -131,11 +131,11 @@
                         <div class="flex items-center justify-between">
                             <div class="buttons">
                                 <% if (data.paging.prev_page < 1) { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Prev
                                 </button>
                                 <% } else {%>
-                                <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                                <a href="/client<%= path %>?page=<%= data.paging.prev_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Prev
                                     </button>
@@ -143,20 +143,20 @@
                                 <% } %> <% for (let i =
                                     data.paging.start_page; i <=
                                     data.paging.end_page; i++) {%>
-                                <a href=" <%= path %>?page=<%= i %> ">
+                                <a href="/client<%= path %>?page=<%= i %> ">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>">
                                         <%= i %>
                                     </button>
                                 </a>
                                 <% } %> <% if (data.paging.next_page <=
                                     data.paging.total_page) { %>
-                                <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                                <a href="/client<%= path %>?page=<%= data.paging.next_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Next
                                     </button>
                                 </a>
                                 <% } else { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Next
                                 </button>
                                 <% } %>

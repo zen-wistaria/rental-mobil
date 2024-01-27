@@ -2,54 +2,24 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Server Error</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #696969;
-            margin: 0;
-        }
-
-        .centered-content {
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 72px;
-            /* margin-bottom: 20px; */
-        }
-
-        p {
-            font-size: 20px;
-            font-style: italic;
-            margin-top: -60px;
-            margin-bottom: 40px;
-            display: block;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-            margin-top: 20px;
-            display: block;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/public/css/tailwind.css" />
 </head>
 
 <body>
-    <div class="centered-content">
-        <h1>Error 500</h1>
-        <p>Server Error</p>
-        <a href="/admin/dashboard">Refresh</a>
+    <div class="h-screen">
+        <div class="w-full h-full bg-black flex justify-center items-center flex-col">
+            <div class="flex justify-center items-center">
+                <h1 class="text-white font-bold text-2xl">Error 500</h1>
+                <p class="text-white mx-4 text-3xl">|</p>
+                <p class="text-white text-md">Server Error</p>
+            </div>
+            <div class="mx-auto mt-10">
+                <button class="bg-white hover:bg-slate-200 text-black font-bold py-2 px-4 rounded-lg text-sm" onclick="javascript:location.reload()">Refresh</button>
+            </div>
+        </div>
     </div>
 </body>
 

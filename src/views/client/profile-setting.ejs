@@ -26,12 +26,12 @@
                     <header class="card-header">
                         <p class="card-header-title">
                             <span class="icon"><i class="mdi mdi-account-circle"></i></span>
-                            Edit Profile
+                            Edit Profil
                         </p>
                     </header>
                     <div class="card-content">
                         <% data.forEach(d => {%>
-                        <form action="/profile/setting?_method=PATCH" method="POST">
+                        <form action="/client/profile/setting?_method=PATCH" method="POST">
                             <!-- <div class="image w-48 h-48 mx-auto">
                                 <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full" />
                             </div>
@@ -120,7 +120,7 @@
                         </p>
                     </header>
                     <div class="card-content">
-                        <form action="/profile/setting?_method=PATCH" method="POST">
+                        <form action="/client/profile/setting?_method=PATCH" method="POST">
                             <div class="field">
                                 <label class="label">Password saat ini</label>
                                 <div class="control">

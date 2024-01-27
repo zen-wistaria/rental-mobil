@@ -1,0 +1,7 @@
+# for Docker replace MYSQL_HOST with rental_mobil_db
+# MYSQL_HOST=rental_mobil_db
+MYSQL_HOST=
+MYSQL_PORT=
+MYSQL_DATABASE=rental-mobil
+MYSQL_USER=
+MYSQL_PASSWORD=

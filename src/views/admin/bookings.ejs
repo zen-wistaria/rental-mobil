@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 
 <head>
     <%- include("partials/head") %>
@@ -137,7 +137,7 @@
                                         </p>
                                     </section>
                                     <footer class="modal-card-foot">
-                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                        <form action="/admin/booking?id=<%= d.id %>&_method=PATCH" method="POST">
                                             <input type="hidden" name="status" value="dikonfirmasi" />
                                             <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
                                             <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Konfirmasi" type="submit">
@@ -166,7 +166,7 @@
                                         </p>
                                     </section>
                                     <footer class="modal-card-foot">
-                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                        <form action="/admin/booking?id=<%= d.id %>&_method=PATCH" method="POST">
                                             <input type="hidden" name="status" value="selesai" />
                                             <input type="hidden" name="id_user" value="<%= d.id_user %>" />
                                             <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
@@ -200,7 +200,7 @@
                                         </p>
                                     </section>
                                     <footer class="modal-card-foot">
-                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                        <form action="/admin/booking?id=<%= d.id %>&_method=PATCH" method="POST">
                                             <input type="hidden" name="status" value="pending" />
                                             <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
                                             <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Konfirmasi" type="submit">
@@ -220,11 +220,11 @@
                         <div class="flex items-center justify-between">
                             <div class="buttons">
                                 <% if (data.paging.prev_page < 1) { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Prev
                                 </button>
                                 <% } else {%>
-                                <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                                <a href="/admin<%= path %>?page=<%= data.paging.prev_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Prev
                                     </button>
@@ -232,20 +232,20 @@
                                 <% } %> <% for (let i =
                                     data.paging.start_page; i <=
                                     data.paging.end_page; i++) {%>
-                                <a href=" <%= path %>?page=<%= i %> ">
+                                <a href="/admin<%= path %>?page=<%= i %> ">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>">
                                         <%= i %>
                                     </button>
                                 </a>
                                 <% } %> <% if (data.paging.next_page <=
                                     data.paging.total_page) { %>
-                                <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                                <a href="/admin<%= path %>?page=<%= data.paging.next_page%>">
                                     <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Next
                                     </button>
                                 </a>
                                 <% } else { %>
-                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                     Next
                                 </button>
                                 <% } %>

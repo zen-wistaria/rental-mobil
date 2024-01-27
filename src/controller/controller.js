@@ -34,7 +34,7 @@ const login = async (req, res) => {
                 email: result.email,
                 roles: result.roles,
             };
-            res.redirect("/dashboard");
+            res.redirect("/client/dashboard");
         } else if (result.roles === "admin") {
             req.session.user = {
                 id: result.id,

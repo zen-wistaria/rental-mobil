@@ -30,7 +30,7 @@ const getCars = async (req, res) => {
 
         // handle POST
         const result = await clientService.bookingCars(req.body);
-        res.redirect("/cars");
+        res.redirect("/client/cars");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -66,7 +66,7 @@ const delBooking = async (req, res) => {
         const bookingId = req.query.id;
         const mobilId = req.body.id_mobil;
         await clientService.delBooking(bookingId, mobilId);
-        res.redirect("/booking");
+        res.redirect("/client/booking");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -105,7 +105,7 @@ const setTransactionsStatus = async (req, res) => {
             transactionsId,
             status
         );
-        res.redirect("/transactions");
+        res.redirect("/client/transactions");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -140,7 +140,7 @@ const profile = async (req, res) => {
             req.session.user.id,
             req.body
         );
-        res.redirect("/profile");
+        res.redirect("/client/profile");
     } catch (error) {
         console.log(error);
         res.render("500", {

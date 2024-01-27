@@ -5,29 +5,24 @@
     <%- include("partials/head") %>
 </head>
 
-<body>
-    <div id="app">
-        <section class="is-hero-bar">
-            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-                <h1 class="title">Register</h1>
-            </div>
-        </section>
-
+<body class="flex justify-center items-center h-screen">
+    <div id="app" class="shadow-2xl">
         <section class="section main-section">
+            <header class="card-header">
+                <p class="card-header-title text-2xl font-bold">
+                    <span class="icon"><i class="mdi mdi-lock mr-5"></i></span>
+                    Register
+                </p>
+            </header>
             <div class="card mb-6">
-                <header class="card-header my-auto">
-                    <p class="card-header-title">
-                        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-                        Forms
-                    </p>
-                    <div class="my-auto flex justify-center mt-2">
-                        <a href="/login">
-                            <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                                Login
-                            </button>
-                        </a>
-                    </div>
-                </header>
+                <div class="my-auto flex justify-end mt-2">
+                    <a href="/login">
+                        <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                            Login
+                        </button>
+                    </a>
+                </div>
+                <!-- </header> -->
                 <% if (msg !== undefined && msg !== "Register berhasil !!")
                     { %>
                 <p class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">

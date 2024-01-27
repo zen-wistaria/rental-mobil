@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en">
 
 <head>
     <%- include("partials/head") %>
@@ -19,7 +19,7 @@
                 <p class="label" style="text-align: center"><%= msg %></p>
                 <% data.forEach(data => { %>
                 <div class="card-content">
-                    <form method="post" action="/admin/dashboard/clients?_method=PATCH">
+                    <form method="post" action="/admin/clients?_method=PATCH">
                         <div class="field">
                             <div class="field-body">
                                 <div class="field">

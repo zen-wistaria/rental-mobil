@@ -4,7 +4,7 @@ import { authClient } from "../middleware/auth.js";
 
 const clientRouter = new express.Router();
 clientRouter.use(authClient);
-clientRouter.get("/", clientController.index);
+clientRouter.get("/dashboard", clientController.index);
 clientRouter
     .route("/cars")
     .get(clientController.getCars)

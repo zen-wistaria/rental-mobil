@@ -6,43 +6,42 @@
 </head>
 
 <body>
-    <div>
-        <section class="section main-section">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title text-2xl font-bold">
-                        <span class="icon"><i class="mdi mdi-lock mr-5"></i></span>
-                        Login
-                    </p>
-                </header>
-                <% if (msg !== undefined) { %>
-                <p class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
-                    <%= msg %>
+    <section class="section main-section">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title text-2xl font-bold">
+                    <span class="icon"><i class="mdi mdi-lock mr-5"></i></span>
+                    Login
                 </p>
-                <% } %>
-                <div class="card-content">
-                    <form method="post" action="/login">
-                        <div class="field spaced">
-                            <label class="label">Username</label>
-                            <div class="control icons-left">
-                                <input class="input" type="text" name="email" placeholder="Email or username" autocomplete="email" />
-                                <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
-                            </div>
-                            <p class="help">
-                                Silahkan masukan email atau username
-                            </p>
+            </header>
+            <% if (msg !== undefined) { %>
+            <p class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
+                <%= msg %>
+            </p>
+            <% } %>
+            <div class="card-content">
+                <form method="post" action="/login">
+                    <div class="field spaced">
+                        <label class="label">Username</label>
+                        <div class="control icons-left">
+                            <input class="input" type="text" name="email" placeholder="Email or username" autocomplete="email" />
+                            <span class="icon is-small left"><i class="mdi mdi-account"></i></span>
                         </div>
+                        <p class="help">
+                            Silahkan masukan email atau username
+                        </p>
+                    </div>
 
-                        <div class="field spaced">
-                            <label class="label">Password</label>
-                            <p class="control icons-left">
-                                <input class="input" type="password" name="password" placeholder="Password" autocomplete="current-password" />
-                                <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
-                            </p>
-                            <p class="help">Silahkan masukan password</p>
-                        </div>
+                    <div class="field spaced">
+                        <label class="label">Password</label>
+                        <p class="control icons-left">
+                            <input class="input" type="password" name="password" placeholder="Password" autocomplete="current-password" />
+                            <span class="icon is-small left"><i class="mdi mdi-asterisk"></i></span>
+                        </p>
+                        <p class="help">Silahkan masukan password</p>
+                    </div>
 
-                        <!-- <div class="field spaced">
+                    <!-- <div class="field spaced">
                 <div class="control">
                   <label class="checkbox"
                     ><input type="checkbox" name="remember" value="1" checked />
@@ -52,27 +51,25 @@
                 </div>
               </div> -->
 
-                        <hr />
+                    <hr />
 
-                        <div class="field grouped">
-                            <div class="control">
-                                <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                                    Login
-                                </button>
-                            </div>
-                            <div class="flex justify-start">
-                                <a href="/register" class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                                    Register
-                                </a>
-                            </div>
+                    <div class="field grouped">
+                        <div class="control">
+                            <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                Login
+                            </button>
                         </div>
-                    </form>
-                </div>
+                        <div class="flex justify-start">
+                            <a href="/register" class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                Register
+                            </a>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </section>
-        <%- include('partials/footer') %>
-    </div>
-    <%- include('partials/script') %>
+            <%- include('partials/footer') %>
+        </div>
+        <%- include('partials/script') %>
 </body>
 
 </html>

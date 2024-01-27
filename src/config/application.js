@@ -25,10 +25,15 @@ app.use(
 app.use(methodOverride("_method"));
 
 app.use(router);
-app.use(clientRouter);
-app.use(adminRouter);
+app.use("/client", clientRouter);
+app.use("/admin", adminRouter);
+
+app.get("/", (req, res) => {
+    res.redirect("/login");
+});
 app.use("/", (req, res) => {
     res.status(400).render("404", {
+        title: "Page Not Found",
         pageTitle: "Page Not Found",
     });
 });

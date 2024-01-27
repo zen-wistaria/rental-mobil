@@ -87,7 +87,7 @@ const editCar = async (req, res) => {
 
         // handle PUT request
         const result = await adminService.editCars(req.body);
-        res.redirect("/admin/dashboard/cars");
+        res.redirect("/admin/cars");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -98,7 +98,7 @@ const editCar = async (req, res) => {
 const delCar = async (req, res) => {
     try {
         const result = await adminService.delCars(req.query.id);
-        res.redirect("/admin/dashboard/cars");
+        res.redirect("/admin/cars");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -187,7 +187,7 @@ const editClient = async (req, res) => {
 
         // handle PATCH request
         const result = await adminService.editClient(req.body);
-        res.redirect("/admin/dashboard/clients");
+        res.redirect("/admin/clients");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -198,7 +198,7 @@ const editClient = async (req, res) => {
 const delClient = async (req, res) => {
     try {
         await adminService.delClient(req.query.id);
-        res.redirect("/admin/dashboard/clients");
+        res.redirect("/admin/clients");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -228,7 +228,7 @@ const bookings = async (req, res) => {
         // handle PATCH method
         const bookingId = req.query.id;
         const result = await adminService.setBookingStatus(bookingId, req.body);
-        res.redirect("/admin/dashboard/booking");
+        res.redirect("/admin/booking");
     } catch (error) {
         console.log(error);
         res.status(500).render("500", {
@@ -284,7 +284,7 @@ const profile = async (req, res) => {
             req.session.user.id,
             req.body
         );
-        res.redirect("/admin/dashboard/profile");
+        res.redirect("/admin/profile");
     } catch (error) {
         console.log(error);
         res.render("500", {

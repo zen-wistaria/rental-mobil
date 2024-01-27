@@ -27,7 +27,7 @@
                     <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
                 </a>
                 <div class="navbar-dropdown">
-                    <a href="/admin/dashboard/profile" class="navbar-item">
+                    <a href="/admin/profile" class="navbar-item">
                         <span class="icon"><i class="mdi mdi-account"></i></span>
                         <span>My Profile</span>
                     </a>
@@ -57,119 +57,56 @@
     <div class="menu is-menu-main">
         <p class="menu-label">General</p>
         <ul class="menu-list">
-            <% if (path === "/" ) { %>
-            <li class="active">
+            <li <% if (path === "/dashboard" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
                 <a href="/admin/dashboard">
                     <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
                     <span class="menu-item-label">Dashboard</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard">
-                    <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
-                    <span class="menu-item-label">Dashboard</span>
-                </a>
-            </li>
-            <% } %> >
         </ul>
         <p class="menu-label">Menu</p>
         <ul class="menu-list">
-            <% if (path === "/admin/dashboard/profile" || path === "/admin/dashboard/profile/setting") { %>
-            <li class="active">
-                <a href="/admin/dashboard/profile">
-                    <span class="icon"><i class="mdi mdi-account-circle"></i>
-                    </span>
-                    <span class="menu-item-label">Profil</span>
+            <li <% if (path === "/profile" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/profile">
+                    <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+                    <span class="menu-item-label">Profile</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard/profile">
-                    <span class="icon"><i class="mdi mdi-account-circle"></i>
-                    </span>
-                    <span class="menu-item-label">Profil</span>
-                </a>
-            </li>
-            <% } %>
-            <% if (path === "/admin/dashboard/cars" || path ===
-            "/admin/dashboard/cars/add") { %>
-            <li class="active">
-                <a href="/admin/dashboard/cars">
+            <li <% if (path === "/cars" || path === "/cars/add") { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/cars">
                     <span class="icon"><i class="mdi mdi-truck"></i></span>
                     <span class="menu-item-label">Mobil</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard/cars">
-                    <span class="icon"><i class="mdi mdi-truck"></i></span>
-                    <span class="menu-item-label">Mobil</span>
-                </a>
-            </li>
-            <% } %>
-            <% if (path === "/admin/dashboard/clients" ) { %>
-            <li class="active">
-                <a href="/admin/dashboard/clients">
-                    <span class="icon"><i class="mdi mdi-account-multiple"></i>
-                    </span>
+            <li <% if (path === "/clients" || path === "/clients/add") { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/clients">
+                    <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
                     <span class="menu-item-label">Pelanggan</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard/clients">
-                    <span class="icon"><i class="mdi mdi-account-multiple"></i>
-                    </span>
-                    <span class="menu-item-label">Pelanggan</span>
-                </a>
-            </li>
-            <% } %>
-            <% if (path === "/admin/dashboard/booking" ) { %>
-            <li class="active">
-                <a href="/admin/dashboard/booking">
-                    <span class="icon"><i class="mdi mdi-clipboard-check"></i>
-                    </span>
+            <li <% if (path === "/booking" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/booking">
+                    <span class="icon"><i class="mdi mdi-clipboard-check"></i></span>
                     <span class="menu-item-label">Booking</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard/booking">
-                    <span class="icon"><i class="mdi mdi-clipboard-check"></i>
-                    </span>
-                    <span class="menu-item-label">Booking</span>
-                </a>
-            </li>
-            <% } %>
-            <% if (path === "/admin/dashboard/transactions" ) { %>
-            <li class="active">
-                <a href="/admin/dashboard/transactions">
-                    <span class="icon"><i class="mdi mdi-clipboard-flow"></i>
-                    </span>
+            <li <% if (path === "/transactions" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/transactions">
+                    <span class="icon"><i class="mdi mdi-clipboard-flow"></i></span>
                     <span class="menu-item-label">Transaksi</span>
                 </a>
             </li>
-            <% } else { %>
-            <li class="--set-active-tables-html">
-                <a href="/admin/dashboard/transactions">
-                    <span class="icon"><i class="mdi mdi-clipboard-flow"></i>
-                    </span>
-                    <span class="menu-item-label">Transaksi</span>
-                </a>
-            </li>
-            <% } %>
         </ul>
         <p class="menu-label">About</p>
         <ul class="menu-list">
             <li>
-                <a href="https://justboil.me/tailwind-admin-templates/free-dashboard/" class="has-icon">
+                <a href="https://github.com/zen-wistaria/rental-mobil" class="has-icon">
                     <span class="icon"><i class="mdi mdi-help-circle"></i></span>
                     <span class="menu-item-label">About</span>
                 </a>
             </li>
             <li>
-                <a href="https://github.com/justboil/admin-one-tailwind" class="has-icon">
+                <a href="https://github.com/zen-wistaria" class="has-icon">
                     <span class="icon"><i class="mdi mdi-github-circle"></i></span>
                     <span class="menu-item-label">GitHub</span>
                 </a>
