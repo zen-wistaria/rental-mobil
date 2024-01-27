@@ -4,7 +4,7 @@ import { authAdmin } from "../middleware/auth.js";
 
 const adminRouter = new express.Router();
 adminRouter.use(authAdmin);
-adminRouter.get("/dashboard", adminController.index);
+adminRouter.get("/dashboard", adminController.dashboard);
 adminRouter
     .route("/cars")
     .get(adminController.cars)

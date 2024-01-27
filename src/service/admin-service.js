@@ -375,12 +375,35 @@ const updatePassword = async (id, data) => {
     });
 };
 
-const getphotos = async (filename) => {
-    return await executeQuery({
-        query: "SELECT foto_profile FROM Users WHERE  = ?",
-        values,
+const getTotalClients = async () => {
+    const query = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Users WHERE roles = 'client'",
     });
+    const result = JSON.parse(JSON.stringify(query));
+    return result[0].total;
 };
+const getTotalCars = async () => {
+    const query = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Mobil",
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result[0].total;
+};
+const getTotalBookings = async () => {
+    const query = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Booking",
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result[0].total;
+};
+const getTotalTransactions = async () => {
+    const query = await executeQuery({
+        query: "SELECT COUNT(id) AS total FROM Transaksi",
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result[0].total;
+};
+
 export default {
     getCars,
     addCars,
@@ -398,4 +421,8 @@ export default {
     getCurrentUser,
     updateProfileUser,
     updatePassword,
+    getTotalClients,
+    getTotalBookings,
+    getTotalCars,
+    getTotalTransactions,
 };

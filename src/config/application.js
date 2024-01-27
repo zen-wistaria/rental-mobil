@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
-        secret: "sangatrahasia",
+        secret: "2d25e624-fddd-4351-b316-88bc57eea821",
         resave: false,
         saveUninitialized: true,
         cookie: {

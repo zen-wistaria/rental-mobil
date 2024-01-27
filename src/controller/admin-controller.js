@@ -1,10 +1,23 @@
 import adminService from "../service/admin-service.js";
 import bcrypt from "bcrypt";
-const index = async (req, res) => {
-    res.render("admin/index", {
+const dashboard = async (req, res) => {
+    const total_client = await adminService.getTotalClients();
+    const total_booking = await adminService.getTotalBookings();
+    const total_transaction = await adminService.getTotalTransactions();
+    const total_cars = await adminService.getTotalCars();
+    const result = {
+        total_client,
+        total_booking,
+        total_transaction,
+        total_cars,
+    };
+    let msg;
+    res.render("admin/dashboard", {
         title: "Admin Dashboard",
         title_page: "Dashboard",
         path: req.path,
+        data: result,
+        msg: msg,
         user: req.session.user,
     });
 };
@@ -379,7 +392,7 @@ const getPhotos = async (req, res) => {
 };
 
 export default {
-    index,
+    dashboard,
     cars,
     addCar,
     editCar,

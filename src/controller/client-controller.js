@@ -1,12 +1,26 @@
 import clientService from "../service/client-service.js";
 import bcrypt from "bcrypt";
 
-const index = async (req, res) => {
-    res.render("client/index", {
+const dashboard = async (req, res) => {
+    const total_booking = await clientService.getTotalBookings(
+        req.session.user.id
+    );
+    const total_transaction = await clientService.getTotalTransactions(
+        req.session.user.id
+    );
+    const total_cars = await clientService.getTotalCars();
+    const result = {
+        total_booking,
+        total_transaction,
+        total_cars,
+    };
+    let msg;
+    res.render("client/dashboard", {
         title: "Dashboard",
         title_page: "Dashboard",
         path: req.path,
-        msg: "",
+        data: result,
+        msg: msg,
         user: req.session.user,
     });
 };
@@ -237,7 +251,7 @@ const photoFiles = async (req, res) => {
 };
 
 export default {
-    index,
+    dashboard,
     getCars,
     getBooking,
     delBooking,
