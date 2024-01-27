@@ -5,15 +5,16 @@
     <%- include('partials/head') %>
 </head>
 
-<body>
+<body class="bg-gray-50">
     <section class="section main-section">
         <div class="card">
             <header class="card-header">
-                <p class="card-header-title text-2xl font-bold">
+                <p class="card-header-title text-2xl font-bold p-5">
                     <span class="icon"><i class="mdi mdi-lock mr-5"></i></span>
                     Login
                 </p>
             </header>
+            <hr class="mx-auto w-full border-0 bg-gray-300 h-1">
             <% if (msg !== undefined) { %>
             <p class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
                 <%= msg %>
@@ -31,7 +32,6 @@
                             Silahkan masukan email atau username
                         </p>
                     </div>
-
                     <div class="field spaced">
                         <label class="label">Password</label>
                         <p class="control icons-left">
@@ -40,19 +40,14 @@
                         </p>
                         <p class="help">Silahkan masukan password</p>
                     </div>
-
                     <!-- <div class="field spaced">
-                <div class="control">
-                  <label class="checkbox"
-                    ><input type="checkbox" name="remember" value="1" checked />
-                    <span class="check"></span>
-                    <span class="control-label">Remember</span>
-                  </label>
-                </div>
-              </div> -->
-
-                    <hr />
-
+                        <div class="control">
+                            <label class="checkbox"><input type="checkbox" name="remember" value="1" checked />
+                                <span class="check"></span>
+                                <span class="control-label">Remember</span>
+                            </label>
+                        </div>
+                    </div> -->
                     <div class="field grouped">
                         <div class="control">
                             <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
