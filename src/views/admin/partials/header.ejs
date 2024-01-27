@@ -66,7 +66,7 @@
         </ul>
         <p class="menu-label">Menu</p>
         <ul class="menu-list">
-            <li <% if (path === "/profile" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+            <li <% if (path === "/profile" || path === "/profile/setting") { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
                 <a href="/admin/profile">
                     <span class="icon"><i class="mdi mdi-account-circle"></i></span>
                     <span class="menu-item-label">Profile</span>
