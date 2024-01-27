@@ -52,7 +52,9 @@ const login = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        res.status(500).render("500");
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
     }
 };
 
