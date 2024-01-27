@@ -2,3 +2,5 @@
 .git
 .env
 package-lock.json
+*.zip
+*.rar
