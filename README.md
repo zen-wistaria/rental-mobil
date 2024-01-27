@@ -2,9 +2,9 @@
 
 ### Config database connection
 
-- rename **env** to **.env**
+- rename **_`env`_** to **_`.env`_**
 
-_example inside of_ **.env** :
+_example inside of_ **_`.env`_** :
 
 ```
 MYSQL_HOST=http://localhost
@@ -20,8 +20,8 @@ MYSQL_PASSWORD=user
 
 #### Requirements
 
-- node 18^
-- npm 10^
+- `node 18^`
+- `npm 8^`
 
 #### Run
 
@@ -29,7 +29,7 @@ MYSQL_PASSWORD=user
 npm i && npm start
 ```
 
-> access : **http://<i></i>localhost:3000**
+> access : **_`http://localhost:3000`_**
 
 ---
 
@@ -37,12 +37,12 @@ npm i && npm start
 
 #### Requirements
 
-- docker
-- docker-compose
+- `docker`
+- `docker-compose`
 
 #### Config
 
-change value of **MYSQL_HOST** in **.env** to **rental_mobil_db**  
+change value of **_`MYSQL_HOST`_** in **_`.env`_** to **_`rental_mobil_db`_**  
 _example :_
 
 ```
@@ -59,5 +59,19 @@ MYSQL_PASSWORD=user
 docker compose up -d
 ```
 
-> access : **http://<i></i>localhost**  
-> database access : **localhost** port **3307**
+> access : **_`http://localhost`_**  
+> database access : **_`localhost`_** port **_`3307`_**
+
+---
+
+#### Demo
+
+visit demo : ***https://rental-mobil.anri.my.id***
+
+`admin`  
+ email : *admin@gmail.com*  
+ password : _admin123_
+
+`client`  
+ email : *client@gmail.com*  
+ password : _client123_
