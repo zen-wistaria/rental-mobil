@@ -26,6 +26,11 @@ adminRouter
     .get(adminController.bookings)
     .patch(adminController.bookings);
 adminRouter.get("/admin/dashboard/transactions", adminController.transactions);
-adminRouter.get("/admin/dashboard/profile", adminController.profile);
+adminRouter.route("/admin/dashboard/profile").get(adminController.profile);
+// adminRouter.get("/admin/dashboard/profile/:photos", adminController.getPhotos);
+adminRouter
+    .route("/admin/dashboard/profile/setting")
+    .get(adminController.profileSetting)
+    .patch(adminController.profileSetting);
 
 export { adminRouter };

@@ -1,159 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-    <head>
-        <%- include("partials/head") %>
-    </head>
-    <body>
-        <div id="app">
-            <header><%- include('partials/header') %></header>
-            <section class="section main-section">
-                <div class="card mb-6">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <span class="icon"
-                                ><i class="mdi mdi-ballot"></i
-                            ></span>
-                            Forms
-                        </p>
-                    </header>
-                    <p class="label" style="text-align: center"><%= msg %></p>
-                    <% data.forEach(data => { %>
-                    <div class="card-content">
-                        <form
-                            method="post"
-                            action="/admin/dashboard/clients?_method=PATCH"
-                        >
-                            <div class="field">
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control icons-left">
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nama"
-                                                value="<%= data.nama %>"
-                                                placeholder="Nama"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+
+<head>
+    <%- include("partials/head") %>
+</head>
+
+<body>
+    <div id="app">
+        <header><%- include('partials/header') %></header>
+        <section class="section main-section">
+            <div class="card mb-6">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+                        Forms
+                    </p>
+                </header>
+                <p class="label" style="text-align: center"><%= msg %></p>
+                <% data.forEach(data => { %>
+                <div class="card-content">
+                    <form method="post" action="/admin/dashboard/clients?_method=PATCH">
+                        <div class="field">
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control icons-left">
+                                        <input class="input" type="text" name="nama" value="<%= data.nama %>" placeholder="Nama" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nik"
-                                                value="<%= data.nik %>"
-                                                placeholder="NIK"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <label for="tgl_lahir" class="label"
-                                        >Tanggal Lahir :</label
-                                    >
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="date"
-                                                id="tgl_lahir"
-                                                value="<%= data.tgl_lahir %>"
-                                                name="tgl_lahir"
-                                                placeholder="Tanggal Lahir"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="alamat"
-                                                value="<%= data.alamat %>"
-                                                placeholder="Alamat"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="email"
-                                                value="<%= data.email %>"
-                                                placeholder="Email"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nomor_telepon"
-                                                value="<%= data.nomor_telepon %>"
-                                                placeholder="Nomor Telepon"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
-                                    </div>
-                                    <input
-                                        type="hidden"
-                                        name="id"
-                                        value="<%= data.id %>"
-                                    />
                                 </div>
-                            </div>
-                            <div class="field grouped">
-                                <div class="control">
-                                    <button
-                                        type="submit"
-                                        class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                    >
-                                        Konfirmasi
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onclick="history.back()"
-                                        class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                    >
-                                        Batalkan
-                                    </button>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="nik" value="<%= data.nik %>" placeholder="NIK" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                                    </div>
                                 </div>
+                                <label for="tgl_lahir" class="label">Tanggal Lahir :</label>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="date" id="tgl_lahir" value="<%= data.tgl_lahir %>" name="tgl_lahir" placeholder="Tanggal Lahir" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="alamat" value="<%= data.alamat %>" placeholder="Alamat" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="email" value="<%= data.email %>" placeholder="Email" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="nomor_telepon" value="<%= data.nomor_telepon %>" placeholder="Nomor Telepon" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="id" value="<%= data.id %>" />
                             </div>
-                        </form>
-                    </div>
-                    <% }); %>
+                        </div>
+                        <div class="field grouped">
+                            <div class="control">
+                                <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                    Konfirmasi
+                                </button>
+                                <button type="button" onclick="history.back()" class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                    Batalkan
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </section>
-            <%- include("partials/footer") %>
-        </div>
-        <%- include("partials/script") %>
-    </body>
+                <% }); %>
+            </div>
+        </section>
+        <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+</body>
+
 </html>

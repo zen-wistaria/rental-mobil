@@ -4,6 +4,7 @@ import {
     addCarsValidation,
     registerUserValidation,
     updateUserValidation,
+    updatePasswordValidation,
 } from "../validation/validations.js";
 import bcrypt from "bcrypt";
 
@@ -336,6 +337,50 @@ const getTransactions = async (page) => {
     };
 };
 
+const getCurrentUser = async (id) => {
+    const query = await executeQuery({
+        query: "SELECT *, DATE_FORMAT(tgl_lahir, '%Y-%m-%d') as tgl_lahir FROM Users WHERE id = ?",
+        values: [id],
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result;
+};
+
+const updateProfileUser = async (id, data) => {
+    return await executeQuery({
+        query: "UPDATE Users SET nama = ?, email = ?, alamat = ?, nomor_telepon = ?, tgl_lahir = ?, foto_profil = ? WHERE id = ?",
+        values: [
+            data.nama,
+            data.email,
+            data.alamat,
+            data.nomor_telepon,
+            data.tgl_lahir,
+            data.foto_profil,
+            id,
+        ],
+    });
+};
+
+const updatePassword = async (id, data) => {
+    const user = validate(updatePasswordValidation, data);
+    //jika validasi gagal
+    if (user.error) {
+        return user.error.details.map((e) => e.message).join(".\n");
+    }
+
+    user.password = await bcrypt.hash(data.password, 10);
+    return await executeQuery({
+        query: "UPDATE Users SET password = ? WHERE id = ?",
+        values: [user.password, id],
+    });
+};
+
+const getphotos = async (filename) => {
+    return await executeQuery({
+        query: "SELECT foto_profile FROM Users WHERE  = ?",
+        values,
+    });
+};
 export default {
     getCars,
     addCars,
@@ -350,4 +395,7 @@ export default {
     getBookings,
     setBookingStatus,
     getTransactions,
+    getCurrentUser,
+    updateProfileUser,
+    updatePassword,
 };

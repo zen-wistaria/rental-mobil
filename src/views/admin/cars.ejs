@@ -1,297 +1,192 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-    <head>
-        <%- include("partials/head") %>
-    </head>
-    <body>
-        <div id="app">
-            <header><%- include('partials/header') %></header>
-            <section class="is-hero-bar">
-                <div
-                    class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
-                >
-                    <h1 class="title">Mobil</h1>
-                </div>
-            </section>
-            <section class="section main-section">
-                <% if (msg !== undefined) { %>
-                <div class="notification blue">
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0"
-                    >
-                        <div>
-                            <span class="icon"
-                                ><i class="mdi mdi-buffer"></i
-                            ></span>
-                            <b><%= msg %></b>
-                        </div>
-                        <button
-                            type="button"
-                            class="button small textual --jb-notification-dismiss"
-                        >
-                            Dismiss
-                        </button>
+
+<head>
+    <%- include("partials/head") %>
+</head>
+
+<body>
+    <div id="app">
+        <header><%- include('partials/header') %></header>
+        <section class="is-hero-bar">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                <h1 class="title">Mobil</h1>
+            </div>
+        </section>
+        <section class="section main-section">
+            <% if (msg !== undefined) { %>
+            <div class="notification blue">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                        <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                        <b><%= msg %></b>
                     </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">
+                        Dismiss
+                    </button>
                 </div>
-                <% } %>
-                <div class="card has-table">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <span class="icon"
-                                ><i class="mdi mdi-account-multiple"></i
-                            ></span>
-                            Mobil
-                        </p>
-                        <div class="my-auto flex justify-center mt-2">
-                            <a href="/admin/dashboard/cars/add">
-                                <button
-                                    type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                >
-                                    Tambah Mobil
-                                </button>
-                            </a>
-                        </div>
-                    </header>
-                    <div class="card-content">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Merk</th>
-                                    <th class="text-center">Model</th>
-                                    <th class="text-center">Tahun Rilis</th>
-                                    <th class="text-center">Warna</th>
-                                    <th class="text-center">Plat Nomor</th>
-                                    <th class="text-center">Nomor STNK</th>
-                                    <th class="text-center">Harga</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% data.data.forEach(d => { %>
+            </div>
+            <% } %>
+            <div class="card has-table">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                        Mobil
+                    </p>
+                    <div class="my-auto flex justify-center mt-2">
+                        <a href="/admin/dashboard/cars/add">
+                            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Tambah Mobil
+                            </button>
+                        </a>
+                    </div>
+                </header>
+                <div class="card-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Merk</th>
+                                <th class="text-center">Model</th>
+                                <th class="text-center">Tahun Rilis</th>
+                                <th class="text-center">Warna</th>
+                                <th class="text-center">Plat Nomor</th>
+                                <th class="text-center">Nomor STNK</th>
+                                <th class="text-center">Harga</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.data.forEach(d => { %>
 
-                                <tr>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Merk"
-                                    >
-                                        <%= d.merk %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Model"
-                                    >
-                                        <%= d.model %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Tahun Rilis"
-                                    >
-                                        <%= d.tahun_produksi %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Warna"
-                                    >
-                                        <%= d.warna %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Plat Nomor"
-                                    >
-                                        <%= d.plat_nomor %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Nomor STNK"
-                                    >
-                                        <%= d.nomor_stnk %>
-                                    </td>
-                                    <td
-                                        class="text-center capitalize"
-                                        data-label="Harga"
-                                    >
-                                        <%= d.harga %>
-                                    </td>
-                                    <% if (d.status === 'tersedia') { %>
-                                    <td
-                                        class="text-center font-semibold capitalize text-green-500"
-                                        data-label="Status"
-                                    >
-                                        <%= d.status %>
-                                    </td>
-                                    <% } else { %>
-                                    <td
-                                        class="text-center font-semibold capitalize text-red-500"
-                                        data-label="Status"
-                                    >
-                                        <%= d.status %>
-                                    </td>
-                                    <% } %>
+                            <tr>
+                                <td class="text-center capitalize" data-label="Merk">
+                                    <%= d.merk %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Model">
+                                    <%= d.model %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Tahun Rilis">
+                                    <%= d.tahun_produksi %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Warna">
+                                    <%= d.warna %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Plat Nomor">
+                                    <%= d.plat_nomor %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Nomor STNK">
+                                    <%= d.nomor_stnk %>
+                                </td>
+                                <td class="text-center capitalize" data-label="Harga">
+                                    <%= d.harga %>
+                                </td>
+                                <% if (d.status === 'tersedia') { %>
+                                <td class="text-center font-semibold capitalize text-green-500" data-label="Status">
+                                    <%= d.status %>
+                                </td>
+                                <% } else { %>
+                                <td class="text-center font-semibold capitalize text-red-500" data-label="Status">
+                                    <%= d.status %>
+                                </td>
+                                <% } %>
 
-                                    <td class="actions-cell">
-                                        <div class="flex justify-center">
-                                            <a
-                                                title="Edit"
-                                                href="/admin/dashboard/cars/edit?id=<%= d.id %>"
-                                                class="mr-2"
-                                            >
-                                                <svg
-                                                    class="w-6 h-6 fill-blue-500"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </a>
-                                            <button
-                                                class="--jb-modal"
-                                                title="Hapus"
-                                                data-target="confrim-delete-modal-<%= d.id %>"
-                                                type="button"
-                                            >
-                                                <svg
-                                                    class="w-6 h-6 fill-red-500 --jb-modal"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
-                                                        clip-rule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <div
-                                    id="confrim-delete-modal-<%= d.id %>"
-                                    class="modal"
-                                >
-                                    <div
-                                        class="modal-background --jb-modal-close"
-                                    ></div>
-                                    <div class="modal-card">
-                                        <header class="modal-card-head">
-                                            <p class="modal-card-title">
-                                                <b>Hapus</b>
-                                            </p>
-                                        </header>
-                                        <section class="modal-card-body">
-                                            <p>
-                                                Apakah anda yakin ingin
-                                                menghapus mobil
-                                                <b
-                                                    ><%= d.merk %> <%= d.model
-                                                    %></b
-                                                >
-                                                ?
-                                            </p>
-                                        </section>
-                                        <footer class="modal-card-foot">
-                                            <button
-                                                class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                            >
-                                                Batalkan
-                                            </button>
-                                            <form
-                                                action="/admin/dashboard/cars?id=<%= d.id %>&_method=DELETE"
-                                                method="POST"
-                                            >
-                                                <button
-                                                    class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                                    type="submit"
-                                                >
-                                                    Konfirmasi
-                                                </button>
-                                            </form>
-                                        </footer>
+                                <td class="actions-cell">
+                                    <div class="flex justify-center">
+                                        <a title="Edit" href="/admin/dashboard/cars/edit?id=<%= d.id %>" class="mr-2">
+                                            <svg class="w-6 h-6 fill-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M11.3 6.2H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h11c1.1 0 2-1 2-2.1V11l-4 4.2c-.3.3-.7.6-1.2.7l-2.7.6c-1.7.3-3.3-1.3-3-3.1l.6-2.9c.1-.5.4-1 .7-1.3l3-3.1Z" clip-rule="evenodd" />
+                                                <path fill-rule="evenodd" d="M19.8 4.3a2.1 2.1 0 0 0-1-1.1 2 2 0 0 0-2.2.4l-.6.6 2.9 3 .5-.6a2.1 2.1 0 0 0 .6-1.5c0-.2 0-.5-.2-.8Zm-2.4 4.4-2.8-3-4.8 5-.1.3-.7 3c0 .3.3.7.6.6l2.7-.6.3-.1 4.7-5Z" clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                        <button class="--jb-modal" title="Hapus" data-target="confrim-delete-modal-<%= d.id %>" type="button">
+                                            <svg class="w-6 h-6 fill-red-500 --jb-modal" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M8.6 2.6A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4c0-.5.2-1 .6-1.4ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
                                     </div>
+                                </td>
+                            </tr>
+                            <div id="confrim-delete-modal-<%= d.id %>" class="modal">
+                                <div class="modal-background --jb-modal-close"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title">
+                                            <b>Hapus</b>
+                                        </p>
+                                    </header>
+                                    <section class="modal-card-body">
+                                        <p>
+                                            Apakah anda yakin ingin
+                                            menghapus mobil
+                                            <b><%= d.merk %> <%= d.model
+                                                    %></b>
+                                            ?
+                                        </p>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+                                            Batalkan
+                                        </button>
+                                        <form action="/admin/dashboard/cars?id=<%= d.id %>&_method=DELETE" method="POST">
+                                            <button class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" type="submit">
+                                                Konfirmasi
+                                            </button>
+                                        </form>
+                                    </footer>
                                 </div>
-                                <% }) %>
-                            </tbody>
-                        </table>
-                        <div class="table-pagination">
-                            <div class="flex items-center justify-between">
-                                <div class="buttons">
-                                    <% if (data.paging.prev_page < 1) { %>
-                                    <button
-                                        type="button"
-                                        onclick="return false"
-                                        class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden"
-                                    >
+                            </div>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <div class="table-pagination">
+                        <div class="flex items-center justify-between">
+                            <div class="buttons">
+                                <% if (data.paging.prev_page < 1) { %>
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                    Prev
+                                </button>
+                                <% } else {%>
+                                <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Prev
                                     </button>
-                                    <% } else {%>
-                                    <a
-                                        href="<%= path %>?page=<%= data.paging.prev_page%>"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        >
-                                            Prev
-                                        </button>
-                                    </a>
-                                    <% } %> <% for (let i =
+                                </a>
+                                <% } %> <% for (let i =
                                     data.paging.start_page; i <=
                                     data.paging.end_page; i++) {%>
-                                    <a href=" <%= path %>?page=<%= i %> ">
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>"
-                                        >
-                                            <%= i %>
-                                        </button>
-                                    </a>
-                                    <% } %> <% if (data.paging.next_page <=
+                                <a href=" <%= path %>?page=<%= i %> ">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>">
+                                        <%= i %>
+                                    </button>
+                                </a>
+                                <% } %> <% if (data.paging.next_page <=
                                     data.paging.total_page) { %>
-                                    <a
-                                        href="<%= path %>?page=<%= data.paging.next_page%>"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        >
-                                            Next
-                                        </button>
-                                    </a>
-                                    <% } else { %>
-                                    <button
-                                        type="button"
-                                        onclick="return false"
-                                        class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden"
-                                    >
+                                <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Next
                                     </button>
-                                    <% } %>
-                                </div>
-                                <small class="text-sm font-semibold italic">
-                                    Total data : <%= data.total_data %> &emsp;
-                                    Page <%=data.paging.current_page %> of <%=
-                                    data.paging.total_page %>
-                                </small>
+                                </a>
+                                <% } else { %>
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                    Next
+                                </button>
+                                <% } %>
                             </div>
+                            <small class="text-sm font-semibold italic">
+                                Total data : <%= data.total_data %> &emsp;
+                                Page <%=data.paging.current_page %> of <%=
+                                    data.paging.total_page %>
+                            </small>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <%- include("partials/footer") %>
-        </div>
-        <%- include("partials/script") %>
-    </body>
+        <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+</body>
+
 </html>

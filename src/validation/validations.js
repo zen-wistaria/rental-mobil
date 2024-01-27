@@ -68,9 +68,20 @@ const addCarsValidation = Joi.object({
     id: Joi.any(),
 });
 
+const updatePasswordValidation = Joi.object({
+    password_current: Joi.string().required(),
+    password: Joi.string().min(8).max(20).required(),
+    konfirmasi_password: Joi.any()
+        .equal(Joi.ref("password"))
+        .required()
+        .label("Konfirmasi password")
+        .options({ messages: { "any.only": "{{#label}} tidak sama" } }),
+});
+
 export {
     registerUserValidation,
     updateUserValidation,
     loginUserValidation,
     addCarsValidation,
+    updatePasswordValidation,
 };

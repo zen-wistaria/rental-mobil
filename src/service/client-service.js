@@ -160,6 +160,44 @@ const setTransactionsStatus = async (transactionsId, status) => {
     return data[0];
 };
 
+const getCurrentUser = async (id) => {
+    const query = await executeQuery({
+        query: "SELECT *, DATE_FORMAT(tgl_lahir, '%Y-%m-%d') as tgl_lahir FROM Users WHERE id = ?",
+        values: [id],
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result;
+};
+
+const updateProfileUser = async (id, data) => {
+    return await executeQuery({
+        query: "UPDATE Users SET nama = ?, email = ?, alamat = ?, nomor_telepon = ?, tgl_lahir = ?, foto_profil = ? WHERE id = ?",
+        values: [
+            data.nama,
+            data.email,
+            data.alamat,
+            data.nomor_telepon,
+            data.tgl_lahir,
+            data.foto_profil,
+            id,
+        ],
+    });
+};
+
+const updatePassword = async (id, data) => {
+    const user = validate(updatePasswordValidation, data);
+    //jika validasi gagal
+    if (user.error) {
+        return user.error.details.map((e) => e.message).join(".\n");
+    }
+
+    user.password = await bcrypt.hash(data.password, 10);
+    return await executeQuery({
+        query: "UPDATE Users SET password = ? WHERE id = ?",
+        values: [user.password, id],
+    });
+};
+
 export default {
     getCars,
     bookingCars,
@@ -167,4 +205,7 @@ export default {
     delBooking,
     getTransactions,
     setTransactionsStatus,
+    getCurrentUser,
+    updateProfileUser,
+    updatePassword,
 };

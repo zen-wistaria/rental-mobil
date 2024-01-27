@@ -1,185 +1,107 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-    <head>
-        <%- include("partials/head") %>
-    </head>
-    <body>
-        <div id="app">
-            <header><%- include('partials/header') %></header>
-            <section class="section main-section">
-                <div class="card mb-6">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <span class="icon"
-                                ><i class="mdi mdi-ballot"></i
-                            ></span>
-                            Forms
-                        </p>
-                    </header>
-                    <% if (msg !== undefined && msg !== "Berhasil ditambahkan
-                    !!") { %>
-                    <p
-                        class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold"
-                    >
-                        <%= msg %>
-                    </p>
-                    <% } else if (msg === "Berhasil ditambahkan !!") {%>
-                    <p
-                        class="mx-auto text-center bg-green-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold"
-                    >
-                        <%= msg %> <br />
-                        Silahkan lanjutkan klik tombol <b><i>Login.</i></b>
-                    </p>
-                    <% } else { %>
-                    <p></p>
-                    <% } %>
 
-                    <div class="card-content">
-                        <form method="post" action="/admin/dashboard/clients">
-                            <div class="field">
-                                <div class="field-body">
-                                    <div class="field">
-                                        <div class="control icons-left">
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nama"
-                                                placeholder="Nama"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+<head>
+    <%- include("partials/head") %>
+</head>
+
+<body>
+    <div id="app">
+        <header><%- include('partials/header') %></header>
+        <section class="section main-section">
+            <div class="card mb-6">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        <span class="icon"><i class="mdi mdi-ballot"></i></span>
+                        Forms
+                    </p>
+                </header>
+                <% if (msg !== undefined && msg !== "Berhasil ditambahkan !!") { %>
+                <p class="mx-auto text-center bg-red-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
+                    <%= msg %>
+                </p>
+                <% } else if (msg === "Berhasil ditambahkan !!") {%>
+                <p class="mx-auto text-center bg-green-500 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
+                    <%= msg %>
+                </p>
+                <% } else { %>
+                <p></p>
+                <% } %>
+
+                <div class="card-content">
+                    <form method="post" action="/admin/dashboard/clients">
+                        <div class="field">
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control icons-left">
+                                        <input class="input" type="text" name="nama" placeholder="Nama" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nik"
-                                                placeholder="NIK"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="nik" placeholder="NIK" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <label
-                                        for="tgl_lahir"
-                                        class="font-md font-semibold"
-                                        >Tanggal Lahir :</label
-                                    >
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="focus:outline-none font-sm italic"
-                                                type="date"
-                                                id="tgl_lahir"
-                                                name="tgl_lahir"
-                                                placeholder="Tanggal Lahir"
-                                            />
-                                        </div>
+                                </div>
+                                <label for="tgl_lahir" class="font-md font-semibold">Tanggal Lahir :</label>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="focus:outline-none font-sm italic" type="date" id="tgl_lahir" name="tgl_lahir" placeholder="Tanggal Lahir" />
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="alamat"
-                                                placeholder="Alamat"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="alamat" placeholder="Alamat" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="email"
-                                                placeholder="Email"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="email" placeholder="Email" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="nomor_telepon"
-                                                placeholder="Nomor Telepon"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="nomor_telepon" placeholder="Nomor Telepon" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
-                                    <div class="field">
-                                        <div
-                                            class="control icons-left icons-right"
-                                        >
-                                            <input
-                                                class="input"
-                                                type="text"
-                                                name="password"
-                                                placeholder="Password"
-                                            />
-                                            <span class="icon left"
-                                                ><i class="mdi mdi-mail"></i
-                                            ></span>
-                                        </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control icons-left icons-right">
+                                        <input class="input" type="text" name="password" placeholder="Password" />
+                                        <span class="icon left"><i class="mdi mdi-mail"></i></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="field grouped">
-                                <div class="control">
-                                    <button
-                                        type="submit"
-                                        class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                    >
-                                        Tambahkan
-                                    </button>
-                                </div>
-                                <div class="control">
-                                    <button
-                                        type="reset"
-                                        class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                    >
-                                        Reset
-                                    </button>
-                                </div>
-                                <div class="control">
-                                    <a href="/admin/dashboard/clients">
-                                        <button
-                                            type="button"
-                                            class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        >
-                                            Kembali
-                                        </button>
-                                    </a>
-                                </div>
+                        </div>
+                        <div class="field grouped">
+                            <div class="control">
+                                <button type="submit" class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                    Tambahkan
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                            <div class="control">
+                                <button type="reset" class="text-white bg-red-500 hover:bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                    Reset
+                                </button>
+                            </div>
+                            <div class="control">
+                                <a href="/admin/dashboard/clients">
+                                    <button type="button" class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                                        Kembali
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </section>
-            <%- include("partials/footer") %>
-        </div>
-        <%- include("partials/script") %>
-    </body>
+            </div>
+        </section>
+        <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+</body>
+
 </html>

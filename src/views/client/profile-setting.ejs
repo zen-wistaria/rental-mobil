@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+
+<head>
+    <%- include("partials/head") %>
+</head>
+
+<body>
+    <div id="app">
+        <header><%- include('partials/header') %></header>
+
+        <section class="is-hero-bar">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                <h1 class="title"><%= title_page %></h1>
+            </div>
+        </section>
+        <% if (msg !== undefined) { %>
+        <p class="mx-auto text-center bg-slate-300 w-3/4 rounded-md p-1 mt-4 text-md font-semibold">
+            <%= msg %>
+        </p>
+        <% } %>
+
+        <section class="section main-section">
+            <div class="grid grid-cols-1 mb-6 xl:mx-60">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+                            Edit Profile
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <% data.forEach(d => {%>
+                        <form action="/profile/setting?_method=PATCH" method="POST">
+                            <!-- <div class="image w-48 h-48 mx-auto">
+                                <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full" />
+                            </div>
+                            <div class="field">
+                                <label class="label">Avatar</label>
+                                <div class="field-body">
+                                    <div class="field file">
+                                        <label class="upload control">
+                                            <a class="button blue">
+                                                Upload
+                                            </a>
+                                            <input type="file" name="foto_profil" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr /> -->
+                            <div class="field">
+                                <label class="label">Nama</label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="text" autocomplete="on" name="nama" value="<%= d.nama %>" class="input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">E-mail</label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="email" autocomplete="on" name="email" value="<%= d.email %>" class="input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Alamat</label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="text" autocomplete="on" name="alamat" value="<%= d.alamat %>" class="input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Nomor Telepon</label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="text" autocomplete="on" name="nomor_telepon" value="<%= d.nomor_telepon %>" class="input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Tanggal Lahir</label>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input type="date" name="tgl_lahir" value="<%= d.tgl_lahir %>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="button green">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <% }) %>
+                    </div>
+                </div>
+                <br />
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            <span class="icon"><i class="mdi mdi-lock"></i></span>
+                            Ubah Password
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <form action="/profile/setting?_method=PATCH" method="POST">
+                            <div class="field">
+                                <label class="label">Password saat ini</label>
+                                <div class="control">
+                                    <input type="password" name="password_current" autocomplete="current-password" class="input" required />
+                                </div>
+                                <p class="help">
+                                    Required. Your current password
+                                </p>
+                            </div>
+                            <hr />
+                            <div class="field">
+                                <label class="label">Password baru</label>
+                                <div class="control">
+                                    <input type="password" autocomplete="new-password" name="password" class="input" required />
+                                </div>
+                                <p class="help">Required. New password</p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Konfirmasi password</label>
+                                <div class="control">
+                                    <input type="password" autocomplete="new-password" name="konfirmasi_password" class="input" required />
+                                </div>
+                                <p class="help">
+                                    Required. New password one more time
+                                </p>
+                            </div>
+                            <hr />
+                            <div class="field">
+                                <div class="control">
+                                    <button type="submit" class="button green">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+</body>
+
+</html>

@@ -17,6 +17,12 @@ clientRouter
     .route("/transactions")
     .get(clientController.transactions)
     .patch(clientController.setTransactionsStatus);
-clientRouter.get("/profile", clientController.profile);
+clientRouter.route("/profile").get(clientController.profile);
+// clientRouter.get("/admin/dashboard/profile/:photos", clientController.getPhotos);
+clientRouter
+    .route("/profile/setting")
+    .get(clientController.profileSetting)
+    .patch(clientController.profileSetting);
+clientRouter.get("/profile/:foto", clientController.profile);
 
 export { clientRouter };

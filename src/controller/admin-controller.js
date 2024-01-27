@@ -1,4 +1,5 @@
 import adminService from "../service/admin-service.js";
+import bcrypt from "bcrypt";
 const index = async (req, res) => {
     res.render("admin/index", {
         title: "Admin Dashboard",
@@ -258,11 +259,123 @@ const transactions = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-    res.render("admin/profile", {
-        title: "Admin Profile",
-        title_page: "Profile",
-        path: req.path,
-    });
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            const result = await adminService.getCurrentUser(
+                req.session.user.id
+            );
+            res.render("admin/profile", {
+                title: "Admin Profil",
+                title_page: "Profil",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            // .sendFile("../files/profile" + result.foto_profil);
+            return;
+        }
+
+        // handle PATCH method
+        console.log(req.body, req.file);
+        const result = await adminService.updateProfileUser(
+            req.session.user.id,
+            req.body
+        );
+        res.redirect("/admin/dashboard/profile");
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const profileSetting = async (req, res) => {
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            const result = await adminService.getCurrentUser(
+                req.session.user.id
+            );
+            res.render("admin/profile-setting", {
+                title: "Admin Profil Setting",
+                title_page: "Profil Setting",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            return;
+        }
+
+        // handle PATCH method
+        if (req.body.password_current) {
+            // check current password
+            const user = await adminService.getCurrentUser(req.session.user.id);
+            const check = await bcrypt.compare(
+                req.body.password_current,
+                user[0].password
+            );
+            if (!check) {
+                msg = "Password lama tidak sesuai !!";
+                return res.render("admin/profile-setting", {
+                    title: "Admin Profil Setting",
+                    title_page: "Profil Setting",
+                    path: req.path,
+                    data: user,
+                    msg: msg,
+                    user: req.session.user,
+                });
+            }
+
+            // update password
+            const result = await adminService.updatePassword(
+                req.session.user.id,
+                req.body
+            );
+            if (result.affectedRows === 1) {
+                msg = "Password berhasil di update !!";
+            } else {
+                msg = result;
+            }
+        } else {
+            // update profile
+            const update = await adminService.updateProfileUser(
+                req.session.user.id,
+                req.body
+            );
+
+            if (update.affectedRows === 1) {
+                msg = "Data berhasil di update !!";
+            } else {
+                msg = "Data gagal di update !!";
+            }
+        }
+
+        const result = await adminService.getCurrentUser(req.session.user.id);
+        res.render("admin/profile-setting", {
+            title: "Admin Profil Setting",
+            title_page: "Profil Setting",
+            path: req.path,
+            data: result,
+            msg: msg,
+            user: req.session.user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const getPhotos = async (req, res) => {
+    const result = await adminService.getPhotos(req.params.photos);
+    res.sendFile("../files/profile" + result);
 };
 
 export default {
@@ -278,4 +391,6 @@ export default {
     bookings,
     transactions,
     profile,
+    profileSetting,
+    getPhotos,
 };

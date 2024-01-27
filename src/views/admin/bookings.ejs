@@ -1,447 +1,269 @@
 <!DOCTYPE html>
 <html lang="en" class="">
-    <head>
-        <%- include("partials/head") %>
-    </head>
-    <body>
-        <div id="app">
-            <header><%- include('partials/header') %></header>
-            <section class="is-hero-bar">
-                <div
-                    class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0"
-                >
-                    <h1 class="title">Daftar Booking</h1>
-                </div>
-            </section>
-            <section class="section main-section">
-                <% if (msg !== undefined) { %>
-                <div class="notification blue">
-                    <div
-                        class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0"
-                    >
-                        <div>
-                            <span class="icon"
-                                ><i class="mdi mdi-buffer"></i
-                            ></span>
-                            <b><%= msg %></b>
-                        </div>
-                        <button
-                            type="button"
-                            class="button small textual --jb-notification-dismiss"
-                        >
-                            Dismiss
-                        </button>
+
+<head>
+    <%- include("partials/head") %>
+</head>
+
+<body>
+    <div id="app">
+        <header><%- include('partials/header') %></header>
+        <section class="is-hero-bar">
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+                <h1 class="title">Daftar Booking</h1>
+            </div>
+        </section>
+        <section class="section main-section">
+            <% if (msg !== undefined) { %>
+            <div class="notification blue">
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0">
+                    <div>
+                        <span class="icon"><i class="mdi mdi-buffer"></i></span>
+                        <b><%= msg %></b>
                     </div>
+                    <button type="button" class="button small textual --jb-notification-dismiss">
+                        Dismiss
+                    </button>
                 </div>
-                <% } %>
-                <div class="card has-table">
-                    <div class="card-content">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Kode Booking</th>
-                                    <th class="text-center">Mobil Merk</th>
-                                    <th class="text-center">Mobil Model</th>
-                                    <th class="text-center">Pelanggan</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Nomor Telepon</th>
-                                    <th class="text-center">Tanggal Booking</th>
-                                    <th class="text-center">
-                                        Tanggal Mulai Sewa
-                                    </th>
-                                    <th class="text-center">
-                                        Tanggal Selesai Sewa
-                                    </th>
-                                    <th class="text-center">Lama Sewa</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% data.data.forEach(d => { %>
-                                <tr>
-                                    <td
-                                        class="text-center"
-                                        data-label="Kode Booking"
-                                    >
-                                        <%= d.kode_booking %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Mobil Merk"
-                                    >
-                                        <%= d.merk %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Mobil Model"
-                                    >
-                                        <%= d.model %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Pelanggan"
-                                    >
-                                        <%= d.nama %>
-                                    </td>
-                                    <td class="text-center" data-label="Email">
-                                        <%= d.email %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Nomor Telepon"
-                                    >
-                                        <%= d.nomor_telepon %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Tanggal Booking"
-                                    >
-                                        <%= d.tgl_booking %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Tanggal Mulai Sewa"
-                                    >
-                                        <%= d.tgl_mulai_sewa %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Tanggal Selesai Sewa"
-                                    >
-                                        <%= d.tgl_selesai_sewa %>
-                                    </td>
-                                    <td
-                                        class="text-center"
-                                        data-label="Lama Sewa"
-                                    >
-                                        <%= d.lama_sewa %> Hari
-                                    </td>
-                                    <% if (d.status === 'selesai') { %>
-                                    <td
-                                        class="text-center font-semibold capitalize text-green-500"
-                                        data-label="Status"
-                                    >
-                                        <%= d.status %>
-                                    </td>
-                                    <% } else if (d.status === 'dikonfirmasi') {
+            </div>
+            <% } %>
+            <div class="card has-table">
+                <div class="card-content">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="text-center">Kode Booking</th>
+                                <th class="text-center">Mobil Merk</th>
+                                <th class="text-center">Mobil Model</th>
+                                <th class="text-center">Pelanggan</th>
+                                <th class="text-center">Email</th>
+                                <th class="text-center">Nomor Telepon</th>
+                                <th class="text-center">Tanggal Booking</th>
+                                <th class="text-center">
+                                    Tanggal Mulai Sewa
+                                </th>
+                                <th class="text-center">
+                                    Tanggal Selesai Sewa
+                                </th>
+                                <th class="text-center">Lama Sewa</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.data.forEach(d => { %>
+                            <tr>
+                                <td class="text-center" data-label="Kode Booking">
+                                    <%= d.kode_booking %>
+                                </td>
+                                <td class="text-center" data-label="Mobil Merk">
+                                    <%= d.merk %>
+                                </td>
+                                <td class="text-center" data-label="Mobil Model">
+                                    <%= d.model %>
+                                </td>
+                                <td class="text-center" data-label="Pelanggan">
+                                    <%= d.nama %>
+                                </td>
+                                <td class="text-center" data-label="Email">
+                                    <%= d.email %>
+                                </td>
+                                <td class="text-center" data-label="Nomor Telepon">
+                                    <%= d.nomor_telepon %>
+                                </td>
+                                <td class="text-center" data-label="Tanggal Booking">
+                                    <%= d.tgl_booking %>
+                                </td>
+                                <td class="text-center" data-label="Tanggal Mulai Sewa">
+                                    <%= d.tgl_mulai_sewa %>
+                                </td>
+                                <td class="text-center" data-label="Tanggal Selesai Sewa">
+                                    <%= d.tgl_selesai_sewa %>
+                                </td>
+                                <td class="text-center" data-label="Lama Sewa">
+                                    <%= d.lama_sewa %> Hari
+                                </td>
+                                <% if (d.status === 'selesai') { %>
+                                <td class="text-center font-semibold capitalize text-green-500" data-label="Status">
+                                    <%= d.status %>
+                                </td>
+                                <% } else if (d.status === 'dikonfirmasi') {
                                     %>
-                                    <td
-                                        class="text-center capitalize font-semibold text-blue-500"
-                                        data-label="Status"
-                                    >
-                                        <%= d.status %>
-                                    </td>
+                                <td class="text-center capitalize font-semibold text-blue-500" data-label="Status">
+                                    <%= d.status %>
+                                </td>
 
-                                    <% } else { %>
-                                    <td
-                                        class="text-center capitalize text-red-500 font-semibold"
-                                        data-label="Status"
-                                    >
-                                        <%= d.status %>
-                                    </td>
-                                    <% } %>
+                                <% } else { %>
+                                <td class="text-center capitalize text-red-500 font-semibold" data-label="Status">
+                                    <%= d.status %>
+                                </td>
+                                <% } %>
 
-                                    <td class="actions-cell text-sm">
-                                        <div
-                                            class="text-center flex justify-between flex-row"
-                                        >
-                                            <% if (d.status === 'selesai') { %>
-                                            <button
-                                                class="opacity-50 text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                                onclick="return false"
-                                                type="button"
-                                            >
-                                                Selesai
-                                            </button>
-                                            <% } else if (d.status ===
+                                <td class="actions-cell text-sm">
+                                    <div class="text-center flex justify-between flex-row">
+                                        <% if (d.status === 'selesai') { %>
+                                        <button class="opacity-50 text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" onclick="return false" type="button">
+                                            Selesai
+                                        </button>
+                                        <% } else if (d.status ===
                                             'dikonfirmasi') {%>
-                                            <button
-                                                class="--jb-modal mx-1 text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                                title="Selesai"
-                                                data-target="confirm-selesai-<%= d.id %>"
-                                                type="button"
-                                            >
-                                                Selesai
-                                            </button>
-                                            <button
-                                                class="--jb-modal text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                                title="Batalkan"
-                                                data-target="confirm-batalkan-<%= d.id %>"
-                                                type="button"
-                                            >
-                                                Batalkan
-                                            </button>
-                                            <% } else {%>
-                                            <button
-                                                class="--jb-modal text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                                title="Konfirmasi"
-                                                data-target="confirm-konfirmasi-<%= d.id %>"
-                                                type="button"
-                                            >
+                                        <button class="--jb-modal mx-1 text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Selesai" data-target="confirm-selesai-<%= d.id %>" type="button">
+                                            Selesai
+                                        </button>
+                                        <button class="--jb-modal text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" title="Batalkan" data-target="confirm-batalkan-<%= d.id %>" type="button">
+                                            Batalkan
+                                        </button>
+                                        <% } else {%>
+                                        <button class="--jb-modal text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" title="Konfirmasi" data-target="confirm-konfirmasi-<%= d.id %>" type="button">
+                                            Konfirmasi
+                                        </button>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <div id="confirm-konfirmasi-<%= d.id %>" class="modal">
+                                <div class="modal-background --jb-modal-close"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title text-lg">
+                                            <b>Booking</b>
+                                        </p>
+                                    </header>
+
+                                    <section class="modal-card-body">
+                                        <p class="text-center text-md font-semibold">
+                                            Konfirmasi booking
+                                            <b><%= d.kode_booking %></b> ?
+                                        </p>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                            <input type="hidden" name="status" value="dikonfirmasi" />
+                                            <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
+                                            <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Konfirmasi" type="submit">
                                                 Konfirmasi
                                             </button>
-                                            <% } %>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <div
-                                    id="confirm-konfirmasi-<%= d.id %>"
-                                    class="modal"
-                                >
-                                    <div
-                                        class="modal-background --jb-modal-close"
-                                    ></div>
-                                    <div class="modal-card">
-                                        <header class="modal-card-head">
-                                            <p class="modal-card-title text-lg">
-                                                <b>Booking</b>
-                                            </p>
-                                        </header>
-
-                                        <section class="modal-card-body">
-                                            <p
-                                                class="text-center text-md font-semibold"
-                                            >
-                                                Konfirmasi booking
-                                                <b><%= d.kode_booking %></b> ?
-                                            </p>
-                                        </section>
-                                        <footer class="modal-card-foot">
-                                            <form
-                                                action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH"
-                                                method="POST"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    name="status"
-                                                    value="dikonfirmasi"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="id_mobil"
-                                                    value="<%= d.id_mobil %>"
-                                                />
-                                                <button
-                                                    class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                                    title="Konfirmasi"
-                                                    type="submit"
-                                                >
-                                                    Konfirmasi
-                                                </button>
-                                            </form>
-                                            <button
-                                                class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                                title="Batalkan"
-                                                type="button"
-                                            >
-                                                Batalkan
-                                            </button>
-                                        </footer>
-                                    </div>
+                                        </form>
+                                        <button class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" title="Batalkan" type="button">
+                                            Batalkan
+                                        </button>
+                                    </footer>
                                 </div>
-                                <div
-                                    id="confirm-selesai-<%= d.id %>"
-                                    class="modal"
-                                >
-                                    <div
-                                        class="modal-background --jb-modal-close"
-                                    ></div>
-                                    <div class="modal-card">
-                                        <header class="modal-card-head">
-                                            <p class="modal-card-title text-lg">
-                                                <b>Booking</b>
-                                            </p>
-                                        </header>
+                            </div>
+                            <div id="confirm-selesai-<%= d.id %>" class="modal">
+                                <div class="modal-background --jb-modal-close"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title text-lg">
+                                            <b>Booking</b>
+                                        </p>
+                                    </header>
 
-                                        <section class="modal-card-body">
-                                            <p
-                                                class="text-center text-md font-semibold"
-                                            >
-                                                Selesaikan booking
-                                                <b><%= d.kode_booking %></b> ?
-                                            </p>
-                                        </section>
-                                        <footer class="modal-card-foot">
-                                            <form
-                                                action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH"
-                                                method="POST"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    name="status"
-                                                    value="selesai"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="id_user"
-                                                    value="<%= d.id_user %>"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="id_mobil"
-                                                    value="<%= d.id_mobil %>"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="tgl_peminjaman"
-                                                    value="<%= d.tgl_mulai_sewa %>"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="tgl_pengembalian"
-                                                    value="<%= d.tgl_selesai_sewa %>"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="total_biaya"
-                                                    value="<%= d.lama_sewa * d.harga %>"
-                                                />
-                                                <button
-                                                    class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                                    title="Konfirmasi"
-                                                    type="submit"
-                                                >
-                                                    Konfirmasi
-                                                </button>
-                                            </form>
-                                            <button
-                                                class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                                title="Batalkan"
-                                                type="button"
-                                            >
-                                                Batalkan
+                                    <section class="modal-card-body">
+                                        <p class="text-center text-md font-semibold">
+                                            Selesaikan booking
+                                            <b><%= d.kode_booking %></b> ?
+                                        </p>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                            <input type="hidden" name="status" value="selesai" />
+                                            <input type="hidden" name="id_user" value="<%= d.id_user %>" />
+                                            <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
+                                            <input type="hidden" name="tgl_peminjaman" value="<%= d.tgl_mulai_sewa %>" />
+                                            <input type="hidden" name="tgl_pengembalian" value="<%= d.tgl_selesai_sewa %>" />
+                                            <input type="hidden" name="total_biaya" value="<%= d.lama_sewa * d.harga %>" />
+                                            <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Konfirmasi" type="submit">
+                                                Konfirmasi
                                             </button>
-                                        </footer>
-                                    </div>
+                                        </form>
+                                        <button class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" title="Batalkan" type="button">
+                                            Batalkan
+                                        </button>
+                                    </footer>
                                 </div>
-                                <div
-                                    id="confirm-batalkan-<%= d.id %>"
-                                    class="modal"
-                                >
-                                    <div
-                                        class="modal-background --jb-modal-close"
-                                    ></div>
-                                    <div class="modal-card">
-                                        <header class="modal-card-head">
-                                            <p class="modal-card-title text-lg">
-                                                <b>Booking</b>
-                                            </p>
-                                        </header>
+                            </div>
+                            <div id="confirm-batalkan-<%= d.id %>" class="modal">
+                                <div class="modal-background --jb-modal-close"></div>
+                                <div class="modal-card">
+                                    <header class="modal-card-head">
+                                        <p class="modal-card-title text-lg">
+                                            <b>Booking</b>
+                                        </p>
+                                    </header>
 
-                                        <section class="modal-card-body">
-                                            <p
-                                                class="text-center text-md font-semibold"
-                                            >
-                                                Apakah anda yakin ingin
-                                                membatalkan konfirmasi booking
-                                                <b><%= d.kode_booking %></b> ?
-                                            </p>
-                                        </section>
-                                        <footer class="modal-card-foot">
-                                            <form
-                                                action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH"
-                                                method="POST"
-                                            >
-                                                <input
-                                                    type="hidden"
-                                                    name="status"
-                                                    value="pending"
-                                                />
-                                                <input
-                                                    type="hidden"
-                                                    name="id_mobil"
-                                                    value="<%= d.id_mobil %>"
-                                                />
-                                                <button
-                                                    class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
-                                                    title="Konfirmasi"
-                                                    type="submit"
-                                                >
-                                                    Konfirmasi
-                                                </button>
-                                            </form>
-                                            <button
-                                                class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800"
-                                                title="Batalkan"
-                                                type="button"
-                                            >
-                                                Batalkan
+                                    <section class="modal-card-body">
+                                        <p class="text-center text-md font-semibold">
+                                            Apakah anda yakin ingin
+                                            membatalkan konfirmasi booking
+                                            <b><%= d.kode_booking %></b> ?
+                                        </p>
+                                    </section>
+                                    <footer class="modal-card-foot">
+                                        <form action="/admin/dashboard/booking?id=<%= d.id %>&_method=PATCH" method="POST">
+                                            <input type="hidden" name="status" value="pending" />
+                                            <input type="hidden" name="id_mobil" value="<%= d.id_mobil %>" />
+                                            <button class="--jb-modal-close text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800" title="Konfirmasi" type="submit">
+                                                Konfirmasi
                                             </button>
-                                        </footer>
-                                    </div>
+                                        </form>
+                                        <button class="--jb-modal-close text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800" title="Batalkan" type="button">
+                                            Batalkan
+                                        </button>
+                                    </footer>
                                 </div>
-                                <% }) %>
-                            </tbody>
-                        </table>
-                        <div class="table-pagination">
-                            <div class="flex items-center justify-between">
-                                <div class="buttons">
-                                    <% if (data.paging.prev_page < 1) { %>
-                                    <button
-                                        type="button"
-                                        onclick="return false"
-                                        class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden"
-                                    >
+                            </div>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <div class="table-pagination">
+                        <div class="flex items-center justify-between">
+                            <div class="buttons">
+                                <% if (data.paging.prev_page < 1) { %>
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                    Prev
+                                </button>
+                                <% } else {%>
+                                <a href="<%= path %>?page=<%= data.paging.prev_page%>">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Prev
                                     </button>
-                                    <% } else {%>
-                                    <a
-                                        href="<%= path %>?page=<%= data.paging.prev_page%>"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        >
-                                            Prev
-                                        </button>
-                                    </a>
-                                    <% } %> <% for (let i =
+                                </a>
+                                <% } %> <% for (let i =
                                     data.paging.start_page; i <=
                                     data.paging.end_page; i++) {%>
-                                    <a href=" <%= path %>?page=<%= i %> ">
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>"
-                                        >
-                                            <%= i %>
-                                        </button>
-                                    </a>
-                                    <% } %> <% if (data.paging.next_page <=
+                                <a href=" <%= path %>?page=<%= i %> ">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 <%= i === data.paging.current_page ? '' : 'opacity-50' %>">
+                                        <%= i %>
+                                    </button>
+                                </a>
+                                <% } %> <% if (data.paging.next_page <=
                                     data.paging.total_page) { %>
-                                    <a
-                                        href="<%= path %>?page=<%= data.paging.next_page%>"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        >
-                                            Next
-                                        </button>
-                                    </a>
-                                    <% } else { %>
-                                    <button
-                                        type="button"
-                                        onclick="return false"
-                                        class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden"
-                                    >
+                                <a href="<%= path %>?page=<%= data.paging.next_page%>">
+                                    <button type="button" class="text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
                                         Next
                                     </button>
-                                    <% } %>
-                                </div>
-                                <small class="text-sm font-semibold italic">
-                                    Total data : <%= data.total_data %> &emsp;
-                                    Page <%=data.paging.current_page %> of <%=
-                                    data.paging.total_page %>
-                                </small>
+                                </a>
+                                <% } else { %>
+                                <button type="button" onclick="return false" class="opacity-50 text-white bg-slate-700 hover:bg-slate-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hidden">
+                                    Next
+                                </button>
+                                <% } %>
                             </div>
+                            <small class="text-sm font-semibold italic">
+                                Total data : <%= data.total_data %> &emsp;
+                                Page <%=data.paging.current_page %> of <%=
+                                    data.paging.total_page %>
+                            </small>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <%- include("partials/footer") %>
-        </div>
-        <%- include("partials/script") %>
-    </body>
+        <%- include("partials/footer") %>
+    </div>
+    <%- include("partials/script") %>
+</body>
+
 </html>

@@ -1,4 +1,5 @@
 import clientService from "../service/client-service.js";
+import bcrypt from "bcrypt";
 
 const index = async (req, res) => {
     res.render("client/index", {
@@ -114,10 +115,125 @@ const setTransactionsStatus = async (req, res) => {
 };
 
 const profile = async (req, res) => {
-    res.render("client/profile", {
-        title: "Profile",
-        path: req.path,
-    });
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            const result = await clientService.getCurrentUser(
+                req.session.user.id
+            );
+            res.render("client/profile", {
+                title: "Profile",
+                title_page: "Profil",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            // .sendFile("../files/profile" + result.foto_profil);
+            return;
+        }
+
+        // handle PATCH method
+        console.log(req.body, req.file);
+        const result = await clientService.updateProfileUser(
+            req.session.user.id,
+            req.body
+        );
+        res.redirect("/profile");
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const profileSetting = async (req, res) => {
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            const result = await clientService.getCurrentUser(
+                req.session.user.id
+            );
+            res.render("client/profile-setting", {
+                title: "Profil Setting",
+                title_page: "Profil Setting",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            return;
+        }
+
+        // handle PATCH method
+        if (req.body.password_current) {
+            // check current password
+            const user = await clientService.getCurrentUser(
+                req.session.user.id
+            );
+            const check = await bcrypt.compare(
+                req.body.password_current,
+                user[0].password
+            );
+            if (!check) {
+                msg = "Password lama tidak sesuai !!";
+                return res.render("client/profile-setting", {
+                    title: "Profil Setting",
+                    title_page: "Profil Setting",
+                    path: req.path,
+                    data: user,
+                    msg: msg,
+                    user: req.session.user,
+                });
+            }
+
+            // update password
+            const result = await clientService.updatePassword(
+                req.session.user.id,
+                req.body
+            );
+            if (result.affectedRows === 1) {
+                msg = "Password berhasil di update !!";
+            } else {
+                msg = result;
+            }
+        } else {
+            // update profile
+            const update = await clientService.updateProfileUser(
+                req.session.user.id,
+                req.body
+            );
+
+            if (update.affectedRows === 1) {
+                msg = "Data berhasil di update !!";
+            } else {
+                msg = "Data gagal di update !!";
+            }
+        }
+
+        const result = await clientService.getCurrentUser(req.session.user.id);
+        res.render("client/profile-setting", {
+            title: "Profil Setting",
+            title_page: "Profil Setting",
+            path: req.path,
+            data: result,
+            msg: msg,
+            user: req.session.user,
+        });
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
+const photoFiles = async (req, res) => {
+    const result = await clientServer.getFiles();
+    res.send(result);
 };
 
 export default {
@@ -128,4 +244,6 @@ export default {
     transactions,
     setTransactionsStatus,
     profile,
+    profileSetting,
+    photoFiles,
 };
