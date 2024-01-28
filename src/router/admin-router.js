@@ -31,5 +31,9 @@ adminRouter
     .route("/profile/setting")
     .get(adminController.profileSetting)
     .patch(adminController.profileSetting);
+adminRouter
+    .route("/settings")
+    .get(adminController.settings)
+    .patch(adminController.settings);
 
 export { adminRouter };

@@ -97,6 +97,12 @@
                     <span class="menu-item-label">Transaksi</span>
                 </a>
             </li>
+            <li <% if (path === "/settings" ) { %> class="active" <% } else { %> class="--set-active-tables-html" <% } %>>
+                <a href="/admin/settings">
+                    <span class="icon"><i class="mdi mdi-settings"></i></span>
+                    <span class="menu-item-label">Pengaturan</span>
+                </a>
+            </li>
         </ul>
         <p class="menu-label">About</p>
         <ul class="menu-list">

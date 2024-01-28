@@ -386,9 +386,51 @@ const profileSetting = async (req, res) => {
     }
 };
 
-const getPhotos = async (req, res) => {
-    const result = await adminService.getPhotos(req.params.photos);
-    res.sendFile("../files/profile" + result);
+const settings = async (req, res) => {
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            // get kode setting
+            const result = await adminService.getKode();
+            res.render("admin/settings", {
+                title: "Admin Settings",
+                title_page: "Settings",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            return;
+        }
+
+        // handle PATCH method
+        // update kode
+        if (req.query.kode) {
+            const id_kode = req.query.kode;
+            const data = await adminService.updateKode(id_kode, req.body);
+            if (data.affectedRows === 1) {
+                msg = "Kode berhasil di update !!";
+            } else {
+                msg = "Kode gagal di update !!";
+            }
+
+            const result = await adminService.getKode();
+            res.render("admin/settings", {
+                title: "Admin Settings",
+                title_page: "Settings",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
 };
 
 export default {
@@ -405,5 +447,5 @@ export default {
     transactions,
     profile,
     profileSetting,
-    getPhotos,
+    settings,
 };

@@ -382,6 +382,7 @@ const getTotalClients = async () => {
     const result = JSON.parse(JSON.stringify(query));
     return result[0].total;
 };
+
 const getTotalCars = async () => {
     const query = await executeQuery({
         query: "SELECT COUNT(id) AS total FROM Mobil",
@@ -389,6 +390,7 @@ const getTotalCars = async () => {
     const result = JSON.parse(JSON.stringify(query));
     return result[0].total;
 };
+
 const getTotalBookings = async () => {
     const query = await executeQuery({
         query: "SELECT COUNT(id) AS total FROM Booking",
@@ -396,12 +398,31 @@ const getTotalBookings = async () => {
     const result = JSON.parse(JSON.stringify(query));
     return result[0].total;
 };
+
 const getTotalTransactions = async () => {
     const query = await executeQuery({
         query: "SELECT COUNT(id) AS total FROM Transaksi",
     });
     const result = JSON.parse(JSON.stringify(query));
     return result[0].total;
+};
+
+const getKode = async () => {
+    const query = await executeQuery({
+        query: "SELECT * FROM Kode",
+    });
+    const result = JSON.parse(JSON.stringify(query));
+    return result;
+};
+
+const updateKode = async (id, data) => {
+    const query = await executeQuery({
+        query: "UPDATE Kode SET kode = ?, deskripsi = ? WHERE id = ?",
+        values: [data.kode, data.deskripsi, id],
+    });
+
+    const result = JSON.parse(JSON.stringify(query));
+    return result;
 };
 
 export default {
@@ -425,4 +446,6 @@ export default {
     getTotalBookings,
     getTotalCars,
     getTotalTransactions,
+    getKode,
+    updateKode,
 };
