@@ -35,5 +35,6 @@ adminRouter
     .route("/settings")
     .get(adminController.settings)
     .patch(adminController.settings);
+adminRouter.get("/settings/:kode", adminController.settings);
 
 export { adminRouter };

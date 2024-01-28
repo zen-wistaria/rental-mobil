@@ -52,9 +52,12 @@
                                     <%= d.deskripsi %>
                                 </td>
                                 <td class="actions-cell">
-                                    <div class="flex justify-center">
+                                    <div class="flex justify-center m-2">
                                         <button class="--jb-modal text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" title="Edit" data-target="edit-kode-modal-<%= d.id %>" type="button">
                                             Edit
+                                        </button>
+                                        <button class="--jb-modal tombol-histori text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" title="Cek History Kode" data-target="kode-history-modal" data-id="<%= d.id %>" data-nama="<%= d.nama %>" type="button">
+                                            Histori
                                         </button>
                                     </div>
                                 </td>
@@ -93,6 +96,38 @@
             </div>
         </section>
         <%- include("partials/footer") %>
+        <div id="kode-history-modal" class="modal">
+            <div class="modal-background --jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">
+                        <b>Histori Kode</b>
+                    </p>
+                </header>
+                <section class="modal-card-body">
+                    <table>
+                        <thead>
+
+                            <tr>
+                                <th class="text-center">Kode Sebelumnya</th>
+                                <th class="text-center">Tanggal Perubahan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tabel-kode-history">
+                            <tr>
+                                <td class="text-center history-kode"> KODE</td>
+                                <td class="text-center history-kode"> 26-04-1999</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <footer class="modal-card-foot">
+                    <button type="button" class="--jb-modal-close text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                        Tutup
+                    </button>
+                </footer>
+            </div>
+        </div>
     </div>
     <%- include("partials/script") %>
 </body>

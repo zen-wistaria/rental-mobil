@@ -373,6 +373,23 @@ const settings = async (req, res) => {
     try {
         // handle GET method
         if (req.method === "GET") {
+            // 1 Transaksi, 2 Booking
+            if (Object.keys(req.params).length > 0) {
+                if (req.params.kode === "1" || req.params.kode === "2") {
+                    const result = await adminService.getHistoryKode(
+                        req.params.kode
+                    );
+                    if (result.error) {
+                        res.json(result.error?.sqlMessage);
+                        return;
+                    }
+                    res.json(result);
+                    return;
+                } else {
+                    res.render("404");
+                    return;
+                }
+            }
             // get kode setting
             const result = await adminService.getKode();
             res.render("admin/settings", {

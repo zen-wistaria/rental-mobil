@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 27/01/2024 19:15:05
+ Date: 28/01/2024 23:14:18
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `Booking`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_user` int NOT NULL,
   `id_mobil` int NOT NULL,
-  `tgl_booking` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tgl_booking` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `kode_booking` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `tgl_mulai_sewa` date NOT NULL,
   `tgl_selesai_sewa` date NOT NULL,
@@ -36,7 +36,34 @@ CREATE TABLE `Booking`  (
   INDEX `bk_id_user`(`id_user`) USING BTREE,
   CONSTRAINT `bk_id_mobil` FOREIGN KEY (`id_mobil`) REFERENCES `Mobil` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `bk_id_user` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for Kode
+-- ----------------------------
+DROP TABLE IF EXISTS `Kode`;
+CREATE TABLE `Kode`  (
+  `id` int NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `kode` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `kode_indeks_nama`(`nama`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for Kode_history
+-- ----------------------------
+DROP TABLE IF EXISTS `Kode_history`;
+CREATE TABLE `Kode_history`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_kode` int NULL DEFAULT NULL,
+  `kode_sebelumnya` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `tgl_perubahan` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_kh_id_kode`(`id_kode`) USING BTREE,
+  CONSTRAINT `hs_id_kode` FOREIGN KEY (`id_kode`) REFERENCES `Kode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for Mobil
@@ -53,7 +80,7 @@ CREATE TABLE `Mobil`  (
   `harga` decimal(10, 0) NOT NULL,
   `status` enum('tersedia','disewa') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'tersedia',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for Transaksi
@@ -74,7 +101,7 @@ CREATE TABLE `Transaksi`  (
   INDEX `tr_id_user`(`id_user`) USING BTREE,
   CONSTRAINT `tr_id_mobil` FOREIGN KEY (`id_mobil`) REFERENCES `Mobil` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `tr_id_user` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Table structure for Users
@@ -94,7 +121,7 @@ CREATE TABLE `Users`  (
   `foto_profil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Triggers structure for table Booking
@@ -104,7 +131,21 @@ delimiter ;;
 CREATE TRIGGER `kodebooking_gen` BEFORE INSERT ON `Booking` FOR EACH ROW BEGIN
   DECLARE last_id INT;
   SET last_id = (SELECT IFNULL(MAX(id), 0) FROM Booking);
-  SET NEW.kode_booking = CONCAT('BK', LPAD(last_id + 1, 6, '0'));
+  SET NEW.kode_booking = CONCAT((SELECT kode FROM Kode WHERE nama = 'Booking'), LPAD(last_id + 1, 6, '0'));
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Triggers structure for table Kode
+-- ----------------------------
+DROP TRIGGER IF EXISTS `perubahan_kode`;
+delimiter ;;
+CREATE TRIGGER `perubahan_kode` AFTER UPDATE ON `Kode` FOR EACH ROW BEGIN
+	IF NEW.kode != OLD.kode THEN
+		INSERT INTO Kode_history (id_kode, kode_sebelumnya, tgl_perubahan)
+		VALUES (OLD.id, OLD.kode, NOW());
+	END IF;
 END
 ;;
 delimiter ;
@@ -117,7 +158,7 @@ delimiter ;;
 CREATE TRIGGER `kode_transaksi_gen` BEFORE INSERT ON `Transaksi` FOR EACH ROW BEGIN
   DECLARE last_id INT;
   SET last_id = (SELECT IFNULL(MAX(id), 0) FROM Transaksi);
-  SET NEW.kode_transaksi = CONCAT('TS', LPAD(last_id + 1, 6, '0'));
+  SET NEW.kode_transaksi = CONCAT((SELECT kode FROM Kode WHERE nama = 'Transaksi'), LPAD(last_id + 1, 6, '0'));
 END
 ;;
 delimiter ;

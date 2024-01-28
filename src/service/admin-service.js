@@ -443,6 +443,14 @@ const updateKode = async (id, data) => {
     return result;
 };
 
+const getHistoryKode = async (id_kode) => {
+    const query = await executeQuery({
+        query: "SELECT kode_sebelumnya, DATE_FORMAT(tgl_perubahan, '%Y-%m-%d %H:%i') as tgl_perubahan FROM Kode_history WHERE id_kode = ? ORDER BY tgl_perubahan DESC",
+        values: [id_kode],
+    });
+    return JSON.parse(JSON.stringify(query));
+};
+
 export default {
     getCars,
     addCars,
@@ -466,4 +474,5 @@ export default {
     getTotalTransactions,
     getKode,
     updateKode,
+    getHistoryKode,
 };
