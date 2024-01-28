@@ -90,8 +90,8 @@ tombol_history.forEach((el) => {
                 let kode = "";
                 data.forEach((d) => {
                     kode += `<tr>
-                            <td class="text-center"> ${d.kode_sebelumnya}</td>
-                            <td class="text-center"> ${d.tgl_perubahan}</td>
+                            <td class="text-center" data-label="Kode Sebelumnya"> ${d.kode_sebelumnya}</td>
+                            <td class="text-center" data-label="Tanggal Perubahan"> ${d.tgl_perubahan}</td>
                             </tr>`;
                 });
                 const tabel_kode_history = document.querySelector(
