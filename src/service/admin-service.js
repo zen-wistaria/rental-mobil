@@ -232,7 +232,7 @@ const getBookings = async (page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Booking.id,Booking.id_mobil,Booking.id_user,Booking.status,Booking.kode_booking,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model, Mobil.harga as harga FROM Booking LEFT OUTER JOIN Users ON Booking.id_user = Users.id LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id ORDER BY tgl_booking DESC LIMIT ? OFFSET ?",
+        query: "SELECT Booking.id,Booking.id_mobil,Booking.id_user,Booking.status,Booking.kode_booking,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model, Mobil.harga as harga FROM Booking LEFT OUTER JOIN Users ON Booking.id_user = Users.id LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id ORDER BY Booking.id DESC LIMIT ? OFFSET ?",
         values: [sizeOfPage, offset],
     });
 
@@ -304,7 +304,7 @@ const getTransactions = async (page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.total_biaya,Transaksi.kode_transaksi,Transaksi.status,DATE_FORMAT(Transaksi.tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(Transaksi.tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian, DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model FROM Transaksi LEFT OUTER JOIN Users ON Transaksi.id_user = Users.id LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id ORDER BY tgl_peminjaman DESC LIMIT ? OFFSET ?",
+        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.total_biaya,Transaksi.kode_transaksi,Transaksi.status,DATE_FORMAT(Transaksi.tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(Transaksi.tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian, DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa,Users.nama, Users.email,Users.nomor_telepon, Mobil.merk as merk, Mobil.model as model FROM Transaksi LEFT OUTER JOIN Users ON Transaksi.id_user = Users.id LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id ORDER BY Transaksi.id DESC LIMIT ? OFFSET ?",
         values: [sizeOfPage, offset],
     });
 
