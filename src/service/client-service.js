@@ -1,4 +1,7 @@
 import executeQuery from "../config/database.js";
+import validate from "../validation/validate.js";
+import { updatePasswordValidation } from "../validation/validations.js";
+import bcrypt from "bcrypt";
 
 const getCars = async (page) => {
     const sizeOfPage = 10;
@@ -62,7 +65,7 @@ const getBooking = async (id_user, page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Booking.id,Booking.id_mobil,Booking.kode_booking,Booking.status,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa, Mobil.merk, Mobil.model FROM Booking LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id WHERE Booking.id_user = ? ORDER BY tgl_booking DESC LIMIT ? OFFSET ? ",
+        query: "SELECT Booking.id,Booking.id_mobil,Booking.kode_booking,Booking.status,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa, Mobil.merk, Mobil.model FROM Booking LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id WHERE Booking.id_user = ? ORDER BY Booking.id DESC LIMIT ? OFFSET ? ",
         values: [id_user, sizeOfPage, offset],
     });
 
@@ -117,7 +120,7 @@ const getTransactions = async (id_user, page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.kode_transaksi,Transaksi.total_biaya,Transaksi.status,DATE_FORMAT(tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian,DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa, Mobil.merk, Mobil.model FROM Transaksi LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id WHERE Transaksi.id_user = ? ORDER BY tgl_peminjaman DESC LIMIT ? OFFSET ? ",
+        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.kode_transaksi,Transaksi.total_biaya,Transaksi.status,DATE_FORMAT(tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian,DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa, Mobil.merk, Mobil.model FROM Transaksi LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id WHERE Transaksi.id_user = ? ORDER BY Transaksi.id DESC LIMIT ? OFFSET ? ",
         values: [id_user, sizeOfPage, offset],
     });
 
@@ -185,7 +188,25 @@ const updateProfileUser = async (id, data) => {
 };
 
 const updatePassword = async (id, data) => {
+    // Cek password saat ini
+    const currentPassword = data.password_current;
+    const getPassword = await executeQuery({
+        query: "SELECT password FROM Users WHERE id = ?",
+        values: [id],
+    });
+    const checkCurrentPassword = JSON.parse(JSON.stringify(getPassword));
+    const check = await bcrypt.compare(
+        currentPassword,
+        checkCurrentPassword[0].password
+    );
+
+    if (!check) {
+        return "Password saat ini tidak sesuai";
+    }
+
+    // validasi password dan konfirmasi password
     const user = validate(updatePasswordValidation, data);
+
     //jika validasi gagal
     if (user.error) {
         return user.error.details.map((e) => e.message).join(".\n");

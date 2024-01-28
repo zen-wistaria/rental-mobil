@@ -1,5 +1,5 @@
 import adminService from "../service/admin-service.js";
-import bcrypt from "bcrypt";
+
 const dashboard = async (req, res) => {
     const total_client = await adminService.getTotalClients();
     const total_booking = await adminService.getTotalBookings();
@@ -327,24 +327,6 @@ const profileSetting = async (req, res) => {
 
         // handle PATCH method
         if (req.body.password_current) {
-            // check current password
-            const user = await adminService.getCurrentUser(req.session.user.id);
-            const check = await bcrypt.compare(
-                req.body.password_current,
-                user[0].password
-            );
-            if (!check) {
-                msg = "Password lama tidak sesuai !!";
-                return res.render("admin/profile-setting", {
-                    title: "Admin Profil Setting",
-                    title_page: "Profil Setting",
-                    path: req.path,
-                    data: user,
-                    msg: msg,
-                    user: req.session.user,
-                });
-            }
-
             // update password
             const result = await adminService.updatePassword(
                 req.session.user.id,
@@ -386,9 +368,68 @@ const profileSetting = async (req, res) => {
     }
 };
 
-const getPhotos = async (req, res) => {
-    const result = await adminService.getPhotos(req.params.photos);
-    res.sendFile("../files/profile" + result);
+const settings = async (req, res) => {
+    let msg;
+    try {
+        // handle GET method
+        if (req.method === "GET") {
+            // 1 Transaksi, 2 Booking
+            if (Object.keys(req.params).length > 0) {
+                if (req.params.kode === "1" || req.params.kode === "2") {
+                    const result = await adminService.getHistoryKode(
+                        req.params.kode
+                    );
+                    if (result.error) {
+                        res.json(result.error?.sqlMessage);
+                        return;
+                    }
+                    res.json(result);
+                    return;
+                } else {
+                    res.render("404");
+                    return;
+                }
+            }
+            // get kode setting
+            const result = await adminService.getKode();
+            res.render("admin/settings", {
+                title: "Admin Settings",
+                title_page: "Settings",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+            return;
+        }
+
+        // handle PATCH method
+        // update kode
+        if (req.query.kode) {
+            const id_kode = req.query.kode;
+            const data = await adminService.updateKode(id_kode, req.body);
+            if (data.affectedRows === 1) {
+                msg = "Kode berhasil di update !!";
+            } else {
+                msg = "Kode gagal di update !!";
+            }
+
+            const result = await adminService.getKode();
+            res.render("admin/settings", {
+                title: "Admin Settings",
+                title_page: "Settings",
+                path: req.path,
+                data: result,
+                msg: msg,
+                user: req.session.user,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.render("500", {
+            title: "Server Error",
+        });
+    }
 };
 
 export default {
@@ -405,5 +446,5 @@ export default {
     transactions,
     profile,
     profileSetting,
-    getPhotos,
+    settings,
 };
