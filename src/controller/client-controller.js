@@ -1,5 +1,4 @@
 import clientService from "../service/client-service.js";
-import bcrypt from "bcrypt";
 
 const dashboard = async (req, res) => {
     const total_booking = await clientService.getTotalBookings(
@@ -184,26 +183,6 @@ const profileSetting = async (req, res) => {
 
         // handle PATCH method
         if (req.body.password_current) {
-            // check current password
-            const user = await clientService.getCurrentUser(
-                req.session.user.id
-            );
-            const check = await bcrypt.compare(
-                req.body.password_current,
-                user[0].password
-            );
-            if (!check) {
-                msg = "Password lama tidak sesuai !!";
-                return res.render("client/profile-setting", {
-                    title: "Profil Setting",
-                    title_page: "Profil Setting",
-                    path: req.path,
-                    data: user,
-                    msg: msg,
-                    user: req.session.user,
-                });
-            }
-
             // update password
             const result = await clientService.updatePassword(
                 req.session.user.id,

@@ -1,4 +1,7 @@
 import executeQuery from "../config/database.js";
+import validate from "../validation/validate.js";
+import { updatePasswordValidation } from "../validation/validations.js";
+import bcrypt from "bcrypt";
 
 const getCars = async (page) => {
     const sizeOfPage = 10;
@@ -185,7 +188,25 @@ const updateProfileUser = async (id, data) => {
 };
 
 const updatePassword = async (id, data) => {
+    // Cek password saat ini
+    const currentPassword = data.password_current;
+    const getPassword = await executeQuery({
+        query: "SELECT password FROM Users WHERE id = ?",
+        values: [id],
+    });
+    const checkCurrentPassword = JSON.parse(JSON.stringify(getPassword));
+    const check = await bcrypt.compare(
+        currentPassword,
+        checkCurrentPassword[0].password
+    );
+
+    if (!check) {
+        return "Password saat ini tidak sesuai";
+    }
+
+    // validasi password dan konfirmasi password
     const user = validate(updatePasswordValidation, data);
+
     //jika validasi gagal
     if (user.error) {
         return user.error.details.map((e) => e.message).join(".\n");

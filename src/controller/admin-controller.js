@@ -1,5 +1,5 @@
 import adminService from "../service/admin-service.js";
-import bcrypt from "bcrypt";
+
 const dashboard = async (req, res) => {
     const total_client = await adminService.getTotalClients();
     const total_booking = await adminService.getTotalBookings();
@@ -327,24 +327,6 @@ const profileSetting = async (req, res) => {
 
         // handle PATCH method
         if (req.body.password_current) {
-            // check current password
-            const user = await adminService.getCurrentUser(req.session.user.id);
-            const check = await bcrypt.compare(
-                req.body.password_current,
-                user[0].password
-            );
-            if (!check) {
-                msg = "Password lama tidak sesuai !!";
-                return res.render("admin/profile-setting", {
-                    title: "Admin Profil Setting",
-                    title_page: "Profil Setting",
-                    path: req.path,
-                    data: user,
-                    msg: msg,
-                    user: req.session.user,
-                });
-            }
-
             // update password
             const result = await adminService.updatePassword(
                 req.session.user.id,
