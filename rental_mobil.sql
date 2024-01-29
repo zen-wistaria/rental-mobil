@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 28/01/2024 23:14:06
+ Date: 29/01/2024 23:24:44
 */
 
 SET NAMES utf8mb4;
@@ -26,17 +26,17 @@ CREATE TABLE `Booking`  (
   `id_user` int NOT NULL,
   `id_mobil` int NOT NULL,
   `tgl_booking` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `kode_booking` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `kode_booking` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_mulai_sewa` date NOT NULL,
   `tgl_selesai_sewa` date NOT NULL,
-  `status` enum('pending','dikonfirmasi','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'pending',
+  `status` enum('pending','dikonfirmasi','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `kode_booking`(`kode_booking`) USING BTREE,
   INDEX `bk_id_mobil`(`id_mobil`) USING BTREE,
   INDEX `bk_id_user`(`id_user`) USING BTREE,
   CONSTRAINT `bk_id_mobil` FOREIGN KEY (`id_mobil`) REFERENCES `Mobil` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `bk_id_user` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Booking
@@ -65,12 +65,12 @@ INSERT INTO `Booking` VALUES (52, 61, 60, '2024-01-28 16:26:11', 'BKNG000052', '
 DROP TABLE IF EXISTS `Kode`;
 CREATE TABLE `Kode`  (
   `id` int NOT NULL,
-  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `kode` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `kode` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `kode_indeks_nama`(`nama`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Kode
@@ -85,12 +85,12 @@ DROP TABLE IF EXISTS `Kode_history`;
 CREATE TABLE `Kode_history`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_kode` int NULL DEFAULT NULL,
-  `kode_sebelumnya` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `kode_sebelumnya` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `tgl_perubahan` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_kh_id_kode`(`id_kode`) USING BTREE,
   CONSTRAINT `hs_id_kode` FOREIGN KEY (`id_kode`) REFERENCES `Kode` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Kode_history
@@ -106,16 +106,16 @@ INSERT INTO `Kode_history` VALUES (15, 2, 'BKNG', '2024-01-28 23:08:48');
 DROP TABLE IF EXISTS `Mobil`;
 CREATE TABLE `Mobil`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `merk` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `model` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `merk` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `model` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tahun_produksi` int NOT NULL,
-  `warna` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `plat_nomor` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `warna` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `plat_nomor` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `nomor_stnk` decimal(20, 0) NOT NULL,
   `harga` decimal(10, 0) NOT NULL,
-  `status` enum('tersedia','disewa') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'tersedia',
+  `status` enum('tersedia','disewa') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'tersedia',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 89 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 96 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Mobil
@@ -171,6 +171,12 @@ INSERT INTO `Mobil` VALUES (86, 'Volkswagen', 'Polo', 2022, 'Gray', 'N 6789 ST',
 INSERT INTO `Mobil` VALUES (87, 'Hyundai', 'Accent', 2022, 'Orange', 'W 1234 UV', 12345678901234567890, 330000, 'tersedia');
 INSERT INTO `Mobil` VALUES (88, 'Kia', 'Rio', 2022, 'Purple', 'C 5678 AB', 23456789012345678901, 320000, 'tersedia');
 INSERT INTO `Mobil` VALUES (89, 'Subaru', 'Legacy', 2022, 'Yellow', 'C 5678 CD', 34567890123456789012, 310000, 'tersedia');
+INSERT INTO `Mobil` VALUES (90, 'Mercedes-Benz', 'E 200 Avantgarde Line', 2024, 'Hitam', 'Z 1299 ZK', 34567890123456790000, 1000000, 'tersedia');
+INSERT INTO `Mobil` VALUES (91, 'Mercedes-Benz', 'C-Class', 2022, 'Silver', 'L 7890 EF', 90123456789012345678, 350000, 'tersedia');
+INSERT INTO `Mobil` VALUES (92, 'Mercedes-Benz', 'E-Class', 2022, 'Black', 'M 9012 GH', 34567890123456789012, 380000, 'tersedia');
+INSERT INTO `Mobil` VALUES (93, 'Mercedes-Benz', 'S-Class', 2022, 'White', 'N 5678 IJ', 45678901234567890123, 400000, 'tersedia');
+INSERT INTO `Mobil` VALUES (94, 'Mercedes-Benz', 'GLC', 2022, 'Blue', 'O 1234 KL', 56789012345678901234, 420000, 'tersedia');
+INSERT INTO `Mobil` VALUES (95, 'Mercedes-Benz', 'GLE', 2022, 'Red', 'P 9012 MN', 67890123456789012345, 450000, 'tersedia');
 
 -- ----------------------------
 -- Table structure for Transaksi
@@ -183,15 +189,15 @@ CREATE TABLE `Transaksi`  (
   `tgl_peminjaman` datetime NOT NULL,
   `tgl_pengembalian` datetime NULL DEFAULT NULL,
   `total_biaya` decimal(10, 2) NULL DEFAULT NULL,
-  `kode_transaksi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `status` enum('selesai','belum di bayar') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'belum di bayar',
+  `kode_transaksi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('selesai','belum di bayar') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'belum di bayar',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `kode_transaksi`(`kode_transaksi`) USING BTREE,
   INDEX `tr_id_mobil`(`id_mobil`) USING BTREE,
   INDEX `tr_id_user`(`id_user`) USING BTREE,
   CONSTRAINT `tr_id_mobil` FOREIGN KEY (`id_mobil`) REFERENCES `Mobil` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `tr_id_user` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Transaksi
@@ -201,10 +207,10 @@ INSERT INTO `Transaksi` VALUES (9, 61, 57, '2024-01-02 00:00:00', '2024-01-16 00
 INSERT INTO `Transaksi` VALUES (10, 61, 39, '2024-01-01 00:00:00', '2024-01-31 00:00:00', 6000000.00, 'TS000010', 'belum di bayar');
 INSERT INTO `Transaksi` VALUES (11, 58, 46, '2024-01-01 00:00:00', '2024-01-17 00:00:00', 4800000.00, 'TS000011', 'belum di bayar');
 INSERT INTO `Transaksi` VALUES (12, 58, 69, '2024-01-16 00:00:00', '2024-02-10 00:00:00', 10000000.00, 'TS000012', 'selesai');
-INSERT INTO `Transaksi` VALUES (16, 61, 39, '2024-01-09 00:00:00', '2024-01-17 00:00:00', 1600000.00, 'TSK000014', 'belum di bayar');
+INSERT INTO `Transaksi` VALUES (16, 61, 39, '2024-01-09 00:00:00', '2024-01-17 00:00:00', 1600000.00, 'TSK000014', 'selesai');
 INSERT INTO `Transaksi` VALUES (17, 61, 48, '2024-01-02 00:00:00', '2024-01-24 00:00:00', 5500000.00, 'TSK000017', 'selesai');
 INSERT INTO `Transaksi` VALUES (18, 58, 63, '2024-02-08 00:00:00', '2024-02-20 00:00:00', 3720000.00, 'TSKI000018', 'belum di bayar');
-INSERT INTO `Transaksi` VALUES (19, 61, 60, '2024-01-08 00:00:00', '2024-01-17 00:00:00', 2610000.00, 'TSKI000019', 'belum di bayar');
+INSERT INTO `Transaksi` VALUES (19, 61, 60, '2024-01-08 00:00:00', '2024-01-17 00:00:00', 2610000.00, 'TSKI000019', 'selesai');
 INSERT INTO `Transaksi` VALUES (20, 61, 47, '2024-01-02 00:00:00', '2024-01-23 00:00:00', 5880000.00, 'TSKI000020', 'belum di bayar');
 
 -- ----------------------------
@@ -213,19 +219,19 @@ INSERT INTO `Transaksi` VALUES (20, 61, 47, '2024-01-02 00:00:00', '2024-01-23 0
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users`  (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `nama` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `nik` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `nama` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nik` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `tgl_lahir` date NULL DEFAULT NULL,
-  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `nomor_telepon` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `roles` enum('client','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'client',
-  `foto_profil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nomor_telepon` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `roles` enum('client','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'client',
+  `foto_profil` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of Users

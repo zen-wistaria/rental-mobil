@@ -9,7 +9,7 @@ _example inside of_ **_`.env`_** :
 ```
 MYSQL_HOST=http://localhost
 MYSQL_PORT=3306
-MYSQL_DATABASE=rental-mobil
+MYSQL_DATABASE=rental_mobil
 MYSQL_USER=user
 MYSQL_PASSWORD=user
 ```
@@ -48,7 +48,7 @@ _example :_
 ```
 MYSQL_HOST=rental_mobil_db
 MYSQL_PORT=3306
-MYSQL_DATABASE=rental-mobil
+MYSQL_DATABASE=rental_mobil
 MYSQL_USER=user
 MYSQL_PASSWORD=user
 ```
