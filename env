@@ -6,7 +6,7 @@
 #MYSQL_USER=changeme
 #MYSQL_PASSWORD=changeme
 
-# running on localhost give config for database connection, (if running in docker comment out below)
+# running on localhost give config for database connection, (if running in docker comment out or remove all lines below)
 
 MYSQL_HOST=
 MYSQL_PORT=

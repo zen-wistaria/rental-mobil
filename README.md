@@ -44,6 +44,7 @@ access : **_`http://localhost:3000`_**
 #### Config
 
 change value of **_`MYSQL_HOST`_** in **_`.env`_** to **_`rental_mobil_db`_**  
+and also change **_`MYSQL_USER`_** & **_`MSYQL_PASSWORD`_**  
 _example :_
 
 ```
@@ -65,7 +66,7 @@ database access : **_`localhost`_** port **_`3307`_**
 
 ---
 
-#### Demo
+### Demo
 
 visit demo : ***https://rental-mobil.anri.my.id***
 
@@ -76,3 +77,10 @@ visit demo : ***https://rental-mobil.anri.my.id***
 `client`  
  email : *client@gmail.com*  
  password : _client123_
+
+---
+
+#### Note
+
+Aplikasi ini masih sangat banyak kekurangan.
+Aplikasi ini dibuat untuk memenuhi tugas mata kuliah **_`Basis Data`_**
