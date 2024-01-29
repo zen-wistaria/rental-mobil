@@ -112,9 +112,11 @@ const transactions = async (req, res) => {
 
 const setTransactionsStatus = async (req, res) => {
     try {
+        const userId = req.session.user.id;
         const transactionsId = req.query.id;
         const status = req.body.status;
         const result = await clientService.setTransactionsStatus(
+            userId,
             transactionsId,
             status
         );

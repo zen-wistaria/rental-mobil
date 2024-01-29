@@ -337,6 +337,14 @@ const getTransactions = async (page) => {
     };
 };
 
+const setTransactionsStatus = async (transactionsId, status) => {
+    const data = await executeQuery({
+        query: "UPDATE Transaksi SET status = ? WHERE id = ?",
+        values: [status, transactionsId],
+    });
+    return data[0];
+};
+
 const getCurrentUser = async (id) => {
     const query = await executeQuery({
         query: "SELECT *, DATE_FORMAT(tgl_lahir, '%Y-%m-%d') as tgl_lahir FROM Users WHERE id = ?",
@@ -465,6 +473,7 @@ export default {
     getBookings,
     setBookingStatus,
     getTransactions,
+    setTransactionsStatus,
     getCurrentUser,
     updateProfileUser,
     updatePassword,

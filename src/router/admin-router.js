@@ -25,7 +25,10 @@ adminRouter
     .route("/booking")
     .get(adminController.bookings)
     .patch(adminController.bookings);
-adminRouter.get("/transactions", adminController.transactions);
+adminRouter
+    .route("/transactions")
+    .get(adminController.transactions)
+    .patch(adminController.setTransactionsStatus);
 adminRouter.route("/profile").get(adminController.profile);
 adminRouter
     .route("/profile/setting")

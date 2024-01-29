@@ -155,10 +155,10 @@ const getTransactions = async (id_user, page) => {
     };
 };
 
-const setTransactionsStatus = async (transactionsId, status) => {
+const setTransactionsStatus = async (userId, transactionsId, status) => {
     const data = await executeQuery({
-        query: "UPDATE Transaksi SET status = ? WHERE id = ?",
-        values: [status, transactionsId],
+        query: "UPDATE Transaksi SET status = ? WHERE  id_user = ? AND id = ?",
+        values: [status, userId, transactionsId],
     });
     return data[0];
 };

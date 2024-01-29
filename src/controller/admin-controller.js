@@ -271,6 +271,23 @@ const transactions = async (req, res) => {
     }
 };
 
+const setTransactionsStatus = async (req, res) => {
+    try {
+        const transactionsId = req.query.id;
+        const status = req.body.status;
+        const result = await adminService.setTransactionsStatus(
+            transactionsId,
+            status
+        );
+        res.redirect("/admin/transactions");
+    } catch (error) {
+        console.log(error);
+        res.status(500).render("500", {
+            title: "Server Error",
+        });
+    }
+};
+
 const profile = async (req, res) => {
     let msg;
     try {
@@ -444,6 +461,7 @@ export default {
     delClient,
     bookings,
     transactions,
+    setTransactionsStatus,
     profile,
     profileSetting,
     settings,
