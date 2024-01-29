@@ -29,7 +29,7 @@ services:
     ports:
       - 3307:3306
     volumes:
-      - ./rental-mobil.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+      - ./rental_mobil.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     command: --default-authentication-plugin=mysql_native_password
 
   web_server:

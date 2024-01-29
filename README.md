@@ -3,6 +3,7 @@
 ### Config database connection
 
 - rename **_`env`_** to **_`.env`_**
+- configure to your own database server
 
 _example inside of_ **_`.env`_** :
 
@@ -49,8 +50,8 @@ _example :_
 MYSQL_HOST=rental_mobil_db
 MYSQL_PORT=3306
 MYSQL_DATABASE=rental_mobil
-MYSQL_USER=user
-MYSQL_PASSWORD=user
+MYSQL_USER=changeme
+MYSQL_PASSWORD=changeme
 ```
 
 #### Run
