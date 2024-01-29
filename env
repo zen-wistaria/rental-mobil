@@ -1,5 +1,13 @@
-# for Docker replace MYSQL_HOST with rental_mobil_db
-# MYSQL_HOST=rental_mobil_db
+# if running in docker uncomment below
+
+#MYSQL_HOST=rental_mobil_db
+#MYSQL_PORT=3306
+#MYSQL_DATABASE=rental-mobil
+#MYSQL_USER=changeme
+#MYSQL_PASSWORD=changeme
+
+# running on localhost give config for database connection, (if running in docker comment out below)
+
 MYSQL_HOST=
 MYSQL_PORT=
 MYSQL_DATABASE=rental-mobil
