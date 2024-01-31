@@ -55,6 +55,8 @@ MYSQL_USER=changeme
 MYSQL_PASSWORD=changeme
 ```
 
+> _`don't forget`_ to uncomment config in **_`.env`_** file if you prefer running in docker
+
 #### Run
 
 ```
