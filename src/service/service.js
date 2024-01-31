@@ -15,7 +15,7 @@ const login = async (request) => {
     }
 
     const user = await executeQuery({
-        query: "SELECT * FROM Users WHERE email = ? OR username = ?",
+        query: "SELECT * FROM users WHERE email = ? OR username = ?",
         values: [data.email, data.email],
     });
 
@@ -42,7 +42,7 @@ const register = async (request) => {
 
     // cek jika user sudah ada
     const user = await executeQuery({
-        query: "SELECT email FROM Users WHERE email = ?",
+        query: "SELECT email FROM users WHERE email = ?",
         values: [data.email],
     });
 
@@ -53,7 +53,7 @@ const register = async (request) => {
     // jika validasi sukses
     data.password = await bcrypt.hash(data.password, 10);
     const result = await executeQuery({
-        query: "INSERT INTO Users (nama, nik, email, alamat, nomor_telepon, tgl_lahir, password, roles) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)",
+        query: "INSERT INTO users (nama, nik, email, alamat, nomor_telepon, tgl_lahir, password, roles) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)",
         values: [
             data.nama,
             data.nik,

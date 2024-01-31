@@ -7,12 +7,12 @@ const getCars = async (page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT * FROM Mobil LIMIT ? OFFSET ? ",
+        query: "SELECT * FROM mobil LIMIT ? OFFSET ? ",
         values: [sizeOfPage, offset],
     });
 
     const total = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Mobil",
+        query: "SELECT COUNT(id) AS total FROM mobil",
     });
     const result = JSON.parse(JSON.stringify(data));
 
@@ -42,7 +42,7 @@ const getCars = async (page) => {
 
 const bookingCars = async (request) => {
     const data = await executeQuery({
-        query: "INSERT INTO Booking (id_user, id_mobil, tgl_mulai_sewa, tgl_selesai_sewa) VALUES (?, ?, ?, ?)",
+        query: "INSERT INTO booking (id_user, id_mobil, tgl_mulai_sewa, tgl_selesai_sewa) VALUES (?, ?, ?, ?)",
         values: [
             request.id_user,
             request.id_mobil,
@@ -53,7 +53,7 @@ const bookingCars = async (request) => {
 
     // update mobil status
     await executeQuery({
-        query: "UPDATE Mobil SET status = 'disewa' WHERE id = ?",
+        query: "UPDATE mobil SET status = 'disewa' WHERE id = ?",
         values: [request.id_mobil],
     });
 
@@ -65,12 +65,12 @@ const getBooking = async (id_user, page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Booking.id,Booking.id_mobil,Booking.kode_booking,Booking.status,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa, Mobil.merk, Mobil.model FROM Booking LEFT OUTER JOIN Mobil ON Booking.id_mobil = Mobil.id WHERE Booking.id_user = ? ORDER BY Booking.id DESC LIMIT ? OFFSET ? ",
+        query: "SELECT booking.id,booking.id_mobil,booking.kode_booking,booking.status,DATE_FORMAT(tgl_booking, '%d-%m-%Y %H:%i') as tgl_booking, DATE_FORMAT(tgl_mulai_sewa, '%d-%m-%Y') as tgl_mulai_sewa, DATE_FORMAT(tgl_selesai_sewa, '%d-%m-%Y') as tgl_selesai_sewa, DATEDIFF (tgl_selesai_sewa, tgl_mulai_sewa) as lama_sewa, mobil.merk, mobil.model FROM booking LEFT OUTER JOIN mobil ON booking.id_mobil = mobil.id WHERE booking.id_user = ? ORDER BY booking.id DESC LIMIT ? OFFSET ? ",
         values: [id_user, sizeOfPage, offset],
     });
 
     const total = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Booking WHERE id_user = ?",
+        query: "SELECT COUNT(id) AS total FROM booking WHERE id_user = ?",
         values: [id_user],
     });
 
@@ -102,13 +102,13 @@ const getBooking = async (id_user, page) => {
 
 const delBooking = async (bookingId, mobilId) => {
     const data = await executeQuery({
-        query: "DELETE FROM Booking WHERE id = ?",
+        query: "DELETE FROM booking WHERE id = ?",
         values: [bookingId],
     });
 
     // update status mobil
     await executeQuery({
-        query: "UPDATE Mobil SET status = 'tersedia' WHERE id = ?",
+        query: "UPDATE mobil SET status = 'tersedia' WHERE id = ?",
         values: [mobilId],
     });
 
@@ -120,12 +120,12 @@ const getTransactions = async (id_user, page) => {
     const sizeOfPage = 10;
     const offset = (page - 1) * sizeOfPage;
     const data = await executeQuery({
-        query: "SELECT Transaksi.id,Transaksi.id_mobil,Transaksi.kode_transaksi,Transaksi.total_biaya,Transaksi.status,DATE_FORMAT(tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian,DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa, Mobil.merk, Mobil.model FROM Transaksi LEFT OUTER JOIN Mobil ON Transaksi.id_mobil = Mobil.id WHERE Transaksi.id_user = ? ORDER BY Transaksi.id DESC LIMIT ? OFFSET ? ",
+        query: "SELECT transaksi.id,transaksi.id_mobil,transaksi.kode_transaksi,transaksi.total_biaya,transaksi.status,DATE_FORMAT(tgl_peminjaman, '%d-%m-%Y') as tgl_peminjaman, DATE_FORMAT(tgl_pengembalian, '%d-%m-%Y') as tgl_pengembalian,DATEDIFF (tgl_pengembalian, tgl_peminjaman) as lama_sewa, mobil.merk, mobil.model FROM transaksi LEFT OUTER JOIN mobil ON transaksi.id_mobil = mobil.id WHERE transaksi.id_user = ? ORDER BY transaksi.id DESC LIMIT ? OFFSET ? ",
         values: [id_user, sizeOfPage, offset],
     });
 
     const total = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Transaksi WHERE id_user = ?",
+        query: "SELECT COUNT(id) AS total FROM transaksi WHERE id_user = ?",
         values: [id_user],
     });
 
@@ -157,7 +157,7 @@ const getTransactions = async (id_user, page) => {
 
 const setTransactionsStatus = async (userId, transactionsId, status) => {
     const data = await executeQuery({
-        query: "UPDATE Transaksi SET status = ? WHERE  id_user = ? AND id = ?",
+        query: "UPDATE transaksi SET status = ? WHERE  id_user = ? AND id = ?",
         values: [status, userId, transactionsId],
     });
     return data[0];
@@ -165,7 +165,7 @@ const setTransactionsStatus = async (userId, transactionsId, status) => {
 
 const getCurrentUser = async (id) => {
     const query = await executeQuery({
-        query: "SELECT *, DATE_FORMAT(tgl_lahir, '%Y-%m-%d') as tgl_lahir FROM Users WHERE id = ?",
+        query: "SELECT *, DATE_FORMAT(tgl_lahir, '%Y-%m-%d') as tgl_lahir FROM users WHERE id = ?",
         values: [id],
     });
     const result = JSON.parse(JSON.stringify(query));
@@ -174,7 +174,7 @@ const getCurrentUser = async (id) => {
 
 const updateProfileUser = async (id, data) => {
     return await executeQuery({
-        query: "UPDATE Users SET nama = ?, email = ?, alamat = ?, nomor_telepon = ?, tgl_lahir = ?, foto_profil = ? WHERE id = ?",
+        query: "UPDATE users SET nama = ?, email = ?, alamat = ?, nomor_telepon = ?, tgl_lahir = ?, foto_profil = ? WHERE id = ?",
         values: [
             data.nama,
             data.email,
@@ -191,7 +191,7 @@ const updatePassword = async (id, data) => {
     // Cek password saat ini
     const currentPassword = data.password_current;
     const getPassword = await executeQuery({
-        query: "SELECT password FROM Users WHERE id = ?",
+        query: "SELECT password FROM users WHERE id = ?",
         values: [id],
     });
     const checkCurrentPassword = JSON.parse(JSON.stringify(getPassword));
@@ -214,21 +214,21 @@ const updatePassword = async (id, data) => {
 
     user.password = await bcrypt.hash(data.password, 10);
     return await executeQuery({
-        query: "UPDATE Users SET password = ? WHERE id = ?",
+        query: "UPDATE users SET password = ? WHERE id = ?",
         values: [user.password, id],
     });
 };
 
 const getTotalCars = async () => {
     const query = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Mobil",
+        query: "SELECT COUNT(id) AS total FROM mobil",
     });
     const result = JSON.parse(JSON.stringify(query));
     return result[0].total;
 };
 const getTotalBookings = async (id_user) => {
     const query = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Booking WHERE id_user = ?",
+        query: "SELECT COUNT(id) AS total FROM booking WHERE id_user = ?",
         values: [id_user],
     });
     const result = JSON.parse(JSON.stringify(query));
@@ -236,7 +236,7 @@ const getTotalBookings = async (id_user) => {
 };
 const getTotalTransactions = async (id_user) => {
     const query = await executeQuery({
-        query: "SELECT COUNT(id) AS total FROM Transaksi WHERE id_user = ?",
+        query: "SELECT COUNT(id) AS total FROM transaksi WHERE id_user = ?",
         values: [id_user],
     });
     const result = JSON.parse(JSON.stringify(query));
