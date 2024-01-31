@@ -8,7 +8,7 @@
 _example inside of_ **_`.env`_** :
 
 ```
-MYSQL_HOST=http://localhost
+MYSQL_HOST=localhost
 MYSQL_PORT=3306
 MYSQL_DATABASE=rental_mobil
 MYSQL_USER=user
